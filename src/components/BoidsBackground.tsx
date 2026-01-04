@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 
 interface Vector {
   x: number;
@@ -41,12 +41,16 @@ class Boid {
     const separation = this.separation(boids);
     const mouseForce = this.seek(mouse, isMouseDown);
 
-    alignment.x *= 1.0; alignment.y *= 1.0;
-    cohesion.x *= 1.0; cohesion.y *= 1.0;
-    separation.x *= 2.5; separation.y *= 2.5;
-    
+    alignment.x *= 1.0;
+    alignment.y *= 1.0;
+    cohesion.x *= 1.0;
+    cohesion.y *= 1.0;
+    separation.x *= 2.5;
+    separation.y *= 2.5;
+
     // Mouse force weight can be adjusted
-    mouseForce.x *= 2.0; mouseForce.y *= 2.0;
+    mouseForce.x *= 2.0;
+    mouseForce.y *= 2.0;
 
     this.applyForce(alignment);
     this.applyForce(cohesion);
@@ -60,7 +64,7 @@ class Boid {
       y: target.y - this.position.y,
     };
     const distance = Math.sqrt(desired.x ** 2 + desired.y ** 2);
-    
+
     // Repel radius (flee) vs Attract radius (seek)
     // Let's use 400 for both for now
     if (distance > 0 && distance < 400) {
@@ -78,7 +82,7 @@ class Boid {
         x: desired.x - this.velocity.x,
         y: desired.y - this.velocity.y,
       };
-      
+
       const steerLen = Math.sqrt(steer.x ** 2 + steer.y ** 2);
       if (steerLen > this.maxForce) {
         steer.x = (steer.x / steerLen) * this.maxForce;
@@ -90,12 +94,12 @@ class Boid {
   }
 
   align(boids: Boid[]): Vector {
-    let steering = { x: 0, y: 0 };
+    const steering = { x: 0, y: 0 };
     let total = 0;
     for (const other of boids) {
       const d = Math.sqrt(
         (this.position.x - other.position.x) ** 2 +
-        (this.position.y - other.position.y) ** 2
+          (this.position.y - other.position.y) ** 2
       );
       if (other !== this && d < this.perceptionRadius) {
         steering.x += other.velocity.x;
@@ -123,13 +127,13 @@ class Boid {
   }
 
   separation(boids: Boid[]): Vector {
-    let steering = { x: 0, y: 0 };
+    const steering = { x: 0, y: 0 };
     let total = 0;
     const separationDistance = 30;
     for (const other of boids) {
       const d = Math.sqrt(
         (this.position.x - other.position.x) ** 2 +
-        (this.position.y - other.position.y) ** 2
+          (this.position.y - other.position.y) ** 2
       );
       if (other !== this && d < separationDistance) {
         const diff = {
@@ -163,12 +167,12 @@ class Boid {
   }
 
   cohesion(boids: Boid[]): Vector {
-    let steering = { x: 0, y: 0 };
+    const steering = { x: 0, y: 0 };
     let total = 0;
     for (const other of boids) {
       const d = Math.sqrt(
         (this.position.x - other.position.x) ** 2 +
-        (this.position.y - other.position.y) ** 2
+          (this.position.y - other.position.y) ** 2
       );
       if (other !== this && d < this.perceptionRadius) {
         steering.x += other.position.x;
@@ -222,7 +226,7 @@ class Boid {
     ctx.lineTo(-4, 4);
     ctx.lineTo(-4, -4);
     ctx.closePath();
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+    ctx.fillStyle = "rgba(0, 0, 0, 0.6)";
     ctx.fill();
     ctx.restore();
   }
@@ -238,16 +242,21 @@ const BoidsBackground: React.FC = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      
+
       if (boidsRef.current.length === 0) {
         for (let i = 0; i < 100; i++) {
-          boidsRef.current.push(new Boid(Math.random() * canvas.width, Math.random() * canvas.height));
+          boidsRef.current.push(
+            new Boid(
+              Math.random() * canvas.width,
+              Math.random() * canvas.height
+            )
+          );
         }
       }
     };
@@ -264,10 +273,10 @@ const BoidsBackground: React.FC = () => {
       mouseDownRef.current = false;
     };
 
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
     handleResize();
 
     let animationFrameId: number;
@@ -288,10 +297,10 @@ const BoidsBackground: React.FC = () => {
     render();
 
     return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -300,13 +309,13 @@ const BoidsBackground: React.FC = () => {
     <canvas
       ref={canvasRef}
       style={{
-        position: 'fixed',
+        position: "fixed",
         top: 0,
         left: 0,
-        width: '100%',
-        height: '100%',
+        width: "100%",
+        height: "100%",
         zIndex: 0,
-        background: '#ffffff',
+        background: "#ffffff",
       }}
     />
   );
