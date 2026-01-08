@@ -10,7 +10,7 @@ function App() {
         <section className="section">
           <div className="content">
             <h1>Atlia</h1>
-            <p>Move your mouse around to scatter the boids.</p>
+            <p>Reach out at founders@atlia.com</p>
           </div>
         </section>
       </div>
