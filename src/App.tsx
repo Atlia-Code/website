@@ -10,7 +10,11 @@ function App() {
         <section className="section">
           <div className="content">
             <h1>Atlia</h1>
-            <p>Reach out at founders@atlia.com</p>
+            <p>
+              {" "}
+              Reach out at{" "}
+              <a href="mailto:founders@atlia.com">founders@atlia.com</a>
+            </p>
           </div>
         </section>
       </div>
