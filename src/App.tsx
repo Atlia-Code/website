@@ -1,10 +1,12 @@
 import "./App.css";
 import BoidsBackground from "./components/BoidsBackground";
+import Cursor from "./components/Cursor";
 import atliaLogo from "./assets/atlia_logo_v1.png";
 
 function App() {
   return (
     <>
+      <Cursor />
       <BoidsBackground />
       <div className="container">
         {/* Hero Section */}
