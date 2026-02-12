@@ -201,11 +201,11 @@ class Boid {
     return steering;
   }
 
-  update() {
-    this.position.x += this.velocity.x;
-    this.position.y += this.velocity.y;
-    this.velocity.x += this.acceleration.x;
-    this.velocity.y += this.acceleration.y;
+  update(dt: number) {
+    this.position.x += this.velocity.x * dt;
+    this.position.y += this.velocity.y * dt;
+    this.velocity.x += this.acceleration.x * dt;
+    this.velocity.y += this.acceleration.y * dt;
 
     const speed = Math.sqrt(this.velocity.x ** 2 + this.velocity.y ** 2);
     if (speed > this.maxSpeed) {
@@ -280,21 +280,25 @@ const BoidsBackground: React.FC = () => {
     handleResize();
 
     let animationFrameId: number;
+    let lastTime = performance.now();
 
-    const render = () => {
+    const render = (now: number) => {
+      const dt = Math.min((now - lastTime) / (1000 / 60), 3);
+      lastTime = now;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (const boid of boidsRef.current) {
         boid.edges(canvas.width, canvas.height);
         boid.flock(boidsRef.current, mouseRef.current, mouseDownRef.current);
-        boid.update();
+        boid.update(dt);
         boid.draw(ctx);
       }
 
       animationFrameId = requestAnimationFrame(render);
     };
 
-    render();
+    animationFrameId = requestAnimationFrame(render);
 
     return () => {
       window.removeEventListener("resize", handleResize);

@@ -20,6 +20,36 @@
   text-align: center;
 }
 
+.hero-logo {
+  width: 80px;
+  height: auto;
+  margin-bottom: 16px;
+}
+
+.yc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 8px 20px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 999px;
+  font-size: 14px;
+  color: #333;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+.yc-badge:hover {
+  border-color: #F26522;
+}
+
+.yc-logo {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
 .donkey-link {
   cursor: pointer;
   color: #646cff; /* Vite/React blue-ish color, or just inherit and underline */
