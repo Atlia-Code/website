@@ -3,11 +3,9 @@ import { useState, useEffect, useRef } from "react";
 function Cursor() {
   const cursorDotOutline = useRef<HTMLDivElement>(null);
   const cursorDot = useRef<HTMLDivElement>(null);
-  const requestRef = useRef<number>();
-  const previousTimeRef = useRef<number>();
+  const requestRef = useRef<number>(0);
+  const previousTimeRef = useRef<number | null>(null);
   let [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
   const cursorVisible = useRef(false);
   const cursorEnlarged = useRef(false);
 
@@ -36,17 +34,11 @@ function Cursor() {
       cursorEnlarged.current = false;
       toggleCursorSize();
     };
-    const onResize = () => {
-      setWidth(window.innerWidth);
-      setHeight(window.innerHeight);
-    };
-
     document.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mouseenter", onMouseEnter);
     document.addEventListener("mouseleave", onMouseLeave);
     document.addEventListener("mousedown", onMouseDown);
     document.addEventListener("mouseup", onMouseUp);
-    window.addEventListener("resize", onResize);
     requestRef.current = requestAnimationFrame(animateDotOutline);
 
     handleLinks();
@@ -57,7 +49,6 @@ function Cursor() {
       document.removeEventListener("mouseleave", onMouseLeave);
       document.removeEventListener("mousedown", onMouseDown);
       document.removeEventListener("mouseup", onMouseUp);
-      window.removeEventListener("resize", onResize);
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
     };
   }, []);
