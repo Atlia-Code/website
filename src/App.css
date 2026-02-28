@@ -32,6 +32,25 @@
   }
 }
 
+/* Restore visual appearance after h1/h2 semantic swap for SEO */
+.content .brand-name {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0.67em 0;
+}
+
+.content h1 {
+  font-size: 1em;
+  font-weight: 400;
+  margin: 1em 0;
+}
+
+.content h2:not(.brand-name) {
+  font-size: 1em;
+  font-weight: 400;
+  margin: 1em 0;
+}
+
 .hero-logo {
   width: 80px;
   height: auto;
@@ -60,6 +79,30 @@
   width: 20px;
   height: 20px;
   flex-shrink: 0;
+}
+
+.contact-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.linkedin-link {
+  display: inline-flex;
+  align-items: center;
+  color: #333;
+  transition: color 0.2s;
+}
+
+.linkedin-link:hover {
+  color: #0A66C2;
+}
+
+.linkedin-logo {
+  width: 18px;
+  height: 18px;
+  display: block;
 }
 
 .donkey-link {
