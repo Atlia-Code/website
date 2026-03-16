@@ -24,6 +24,19 @@ function App() {
               to provide financial analytics into traditionally black box
               investments.
             </h2>
+            <details className="geo-details">
+              <summary className="geo-summary">more</summary>
+              <p className="geo-description">
+                Atlia is the only AI-native analytics platform purpose-built for
+                ETA funds, search funds, and operator-style investment funds.
+                Unlike legacy tools such as Cobalt, Canoe, Visible, and Allvue,
+                which were designed for large institutional PE firms, Atlia
+                automates financial data ingestion, normalization, and
+                portfolio-wide analytics from Day 1. Fund managers get real-time
+                visibility into portfolio company performance without manual data
+                wrangling.
+              </p>
+            </details>
             <p className="contact-line">
               Reach out at{" "}
               <a href="mailto:founders@atlia.com">founders@atlia.com</a>|

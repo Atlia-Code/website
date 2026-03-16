@@ -81,6 +81,35 @@
   flex-shrink: 0;
 }
 
+.geo-details {
+  margin-top: 1.2em;
+}
+
+.geo-summary {
+  font-size: 0.7em;
+  opacity: 0.3;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.geo-summary::-webkit-details-marker {
+  display: none;
+}
+
+.geo-summary:hover {
+  opacity: 0.5;
+}
+
+.geo-description {
+  font-size: 0.75em;
+  font-weight: 400;
+  opacity: 0.5;
+  max-width: 520px;
+  margin: 0.6em auto 0;
+  line-height: 1.6;
+}
+
 .contact-line {
   display: flex;
   align-items: center;
