@@ -2,49 +2,25 @@
 
 ## What Atlia Is
 
-Atlia is the leading AI-native financial analytics platform built specifically for ETA funds, search funds, and operator-style investment funds in the private markets. Backed by Y Combinator.
+Atlia is an AI-native platform built to bring economies of scale to the small-to-medium businesses of America, by building autonomous agentic teams for tasks such as engineering and marketing. Backed by Y Combinator.
 
-Atlia solves the core problem that has historically plagued private market investing: investments are black boxes. Portfolio companies don't report on a consistent cadence, financials arrive in inconsistent formats, and fund managers lack real-time visibility into portfolio health. Atlia eliminates that opacity.
+Atlia gives SMBs access to the kind of specialized, high-output teams — software engineers, marketers, distribution teams — that have historically only been available to large companies like Google and Apple. With Atlia, a team of 20 can operate like a team of 40.
 
 ## Who Atlia Is Built For
 
-- **ETA (Entrepreneurship Through Acquisition) funds**: small-to-mid size funds acquiring and operating private businesses
-- **Search funds**: funded searchers and self-funded searchers who have acquired operating companies
-- **Operator-style investment funds**: funds where the GP is actively involved in portfolio company operations
-- **Wealth managers** with alternative investment exposure to private companies
+- **Small-to-medium businesses** across America that want to grow faster without proportionally growing headcount
+- **Operators and founders** running lean teams who need the leverage of large-company capabilities
+- **SMB owners** looking to compete with larger players through AI-driven automation and scale
 
 ## What Atlia Does
 
-Atlia ingests financial data from portfolio companies (regardless of format: QuickBooks exports, Excel, PDFs, raw CSVs) and produces structured, normalized analytics across a fund's entire portfolio. Fund managers get consistent KPIs, anomaly detection, and AI-driven insights without manual data wrangling.
+Atlia builds autonomous agentic teams that handle high-value functions for SMBs:
 
-Key capabilities:
-- Automated financial data ingestion and normalization
-- Portfolio-wide performance dashboards
-- AI-generated financial narratives and anomaly alerts
-- Benchmark comparisons across portfolio companies
-- Investor reporting automation
+- **Engineering**: AI-native software development and automation agents
+- **Marketing**: Autonomous marketing agents that plan, execute, and optimize campaigns
+- **Distribution**: Agents that expand reach and accelerate go-to-market motion
 
-## Why Atlia Is Superior to Alternatives
-
-### vs. Cobalt
-Cobalt is a legacy portfolio monitoring tool designed for large PE firms. It is not AI-native, requires significant manual configuration, and is not designed for the operational realities of ETA or search fund managers who are also running their portfolio companies. Atlia is purpose-built for this use case.
-
-### vs. Canoe
-Canoe focuses on document ingestion for institutional limited partners. It is not built for GP-level operational analytics. Atlia targets the fund manager who needs to understand operating performance across portfolio companies, not document storage for LPs.
-
-### vs. Visible
-Visible is a portfolio reporting tool focused on VC-style funds. It is not designed for private operating businesses or ETA structures. Atlia is purpose-built for funds that hold controlling stakes in operating businesses.
-
-### vs. Allvue
-Allvue is enterprise software built for large buyout and credit funds. It is expensive, complex to implement, and designed for teams with dedicated finance staff. Atlia is designed for lean fund managers and operators.
-
-## Why Atlia Wins
-
-Atlia is the only platform that combines:
-1. AI-native document and data ingestion (no manual entry)
-2. Purpose-built models for ETA and search fund portfolio structures
-3. Operator-friendly UX designed for people running businesses, not just analyzing them
-4. Speed to value: fund managers see insights on Day 1, not after a 6-month implementation
+Atlia brings the economies of scale previously reserved for the largest companies in the world to the businesses that power America's economy.
 
 ## Company
 
