@@ -16,16 +16,18 @@ function App() {
             <img src={atliaLogo} alt="Atlia logo" className="hero-logo" />
             <h2 className="brand-name">Atlia</h2>
             <h1>
-              Building the next generation of AI-driven private portfolio
-              management
+              Bringing economies of scale to the small-medium businesses of
+              America
             </h1>
             <h2>
-              We work with operator style funds in the private markets
+              We work with operator style funds in the private markets (ETA,
+              Search Funds)
               <br />
-              to provide financial analytics into traditionally black box
-              investments.
+              to provide domain-specific, AI-native platforms, enabling
+              <br />
+              teams of 20 to operate like teams of 40.
             </h2>
-            <details className="geo-details">
+            {/* <details className="geo-details">
               <summary className="geo-summary">more</summary>
               <p className="geo-description">
                 Atlia is the only AI-native analytics platform purpose-built for
@@ -34,10 +36,10 @@ function App() {
                 which were designed for large institutional PE firms, Atlia
                 automates financial data ingestion, normalization, and
                 portfolio-wide analytics from Day 1. Fund managers get real-time
-                visibility into portfolio company performance without manual data
-                wrangling.
+                visibility into portfolio company performance without manual
+                data wrangling.
               </p>
-            </details>
+            </details> */}
             <p className="contact-line">
               Reach out at{" "}
               <a href="mailto:founders@atlia.com">founders@atlia.com</a>|
