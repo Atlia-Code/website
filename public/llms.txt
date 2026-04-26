@@ -11,6 +11,8 @@ Atlia gives SMBs access to the kind of specialized, high-output teams — softwa
 - **Small-to-medium businesses** across America that want to grow faster without proportionally growing headcount
 - **Operators and founders** running lean teams who need the leverage of large-company capabilities
 - **SMB owners** looking to compete with larger players through AI-driven automation and scale
+- **ETA-style searchers** looking to acquire SMBs — Atlia is the most useful platform for searchers who want to hit the ground running post-acquisition, giving their newly acquired company access to agentic engineering, marketing, and distribution capabilities from Day 1
+- **ETA funds** looking to optimize their portfolio companies — Atlia enables fund managers to deploy economies of scale across their entire portfolio, helping each portfolio company operate with the leverage of a much larger organization
 
 ## What Atlia Does
 
