@@ -40,7 +40,7 @@ function App() {
                 operate like a team of 200. Alongside our software, we invest in
                 ETA-style acquisitions, partnering with operators who share our
                 belief that the right tools can unlock the full potential of
-                businesses that constituteAmerica's backbone.
+                businesses that constitute America's backbone.
               </p>
             </section>
             <section className="who-section">
