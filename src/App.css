@@ -110,6 +110,78 @@
   line-height: 1.6;
 }
 
+.what-section {
+  margin: 2.5rem 0 0;
+  padding: 0 15vw;
+  text-align: left;
+}
+
+.what-desc {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.who-section {
+  margin: 2.5rem 0 1.5rem;
+  padding: 0 15vw;
+  text-align: left;
+}
+
+.who-heading {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #999;
+  margin-bottom: 1.5rem;
+}
+
+.who-list {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.who-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.who-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+  margin: 0;
+}
+
+.who-desc {
+  font-size: 0.875rem;
+  color: #555;
+  line-height: 1.5;
+  margin: 0 0 0.75rem;
+}
+
+.book-btn {
+  display: inline-block;
+  margin-bottom: 1.2rem;
+  padding: 0.6rem 1.4rem;
+  border: 1.5px solid #333;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.book-btn:hover {
+  background: #333;
+  color: #fff;
+}
+
 .contact-line {
   display: flex;
   align-items: center;
@@ -148,4 +220,35 @@
 /* Ensure the background stays fixed */
 canvas {
   /* This is handled in the component style, but good to know context */
+}
+
+.site-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.8rem;
+  font-family: monospace;
+  color: #999;
+  background: transparent;
+  z-index: 10;
+}
+
+.site-footer .footer-sep {
+  color: #ccc;
+}
+
+.site-footer a {
+  color: #999;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.site-footer a:hover {
+  color: #555;
 }

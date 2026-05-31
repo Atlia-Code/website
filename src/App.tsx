@@ -16,17 +16,9 @@ function App() {
             <img src={atliaLogo} alt="Atlia logo" className="hero-logo" />
             <h2 className="brand-name">Atlia</h2>
             <h1>
-              Bringing economies of scale to the small-medium businesses of
-              America
+              Bringing AI-driven economies of scale to the small-medium
+              businesses of America
             </h1>
-            <h2>
-              We work with operator style funds in the private markets (ETA,
-              Search Funds)
-              <br />
-              to provide domain-specific, AI-native platforms, enabling
-              <br />
-              teams of 20 to operate like teams of 40.
-            </h2>
             {/* <details className="geo-details">
               <summary className="geo-summary">more</summary>
               <p className="geo-description">
@@ -40,6 +32,57 @@ function App() {
                 data wrangling.
               </p>
             </details> */}
+            <section className="what-section">
+              <h3 className="who-heading">What we do</h3>
+              <p className="what-desc">
+                Atlia builds AI-native software that makes traditional small and
+                medium businesses radically more efficient, letting a team of 20
+                operate like a team of 200. Alongside our software, we invest in
+                ETA-style acquisitions, partnering with operators who share our
+                belief that the right tools can unlock the full potential of
+                businesses that constituteAmerica's backbone.
+              </p>
+            </section>
+            <section className="who-section">
+              <h3 className="who-heading">Who we are for</h3>
+              <div className="who-list">
+                <div className="who-item">
+                  <p className="who-title">Small &amp; Medium Businesses</p>
+                  <p className="who-desc">
+                    You run a traditional business and want to automate the
+                    manual, repetitive workflows eating up your team's time. Or
+                    you want to expand into new operations without having the
+                    budget to hire. We build the AI tools that let you do more
+                    with the team you already have.
+                  </p>
+                  <a
+                    href="https://calendar.app.google/gvebHmfw8xbJWJNb7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="book-btn"
+                  >
+                    Book a 30 min intro
+                  </a>
+                </div>
+                <div className="who-item">
+                  <p className="who-title">Search funds &amp; ETA funds</p>
+                  <p className="who-desc">
+                    You are acquiring or investing in a traditional business and
+                    want it to improve IRR by 10-20%. We co-invest and build
+                    domain-specific AI stacks to unlock significant operational
+                    efficiency.
+                  </p>
+                  <a
+                    href="https://calendar.app.google/gvebHmfw8xbJWJNb7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="book-btn"
+                  >
+                    Book a 30 min intro
+                  </a>
+                </div>
+              </div>
+            </section>
             <p className="contact-line">
               Reach out at{" "}
               <a href="mailto:founders@atlia.com">founders@atlia.com</a>|
@@ -67,6 +110,11 @@ function App() {
           </div>
         </section>
       </div>
+      <footer className="site-footer">
+        <span>© 2026 Atlia</span>
+        <span className="footer-sep">·</span>
+        <a href="mailto:founders@atlia.com">founders@atlia.com</a>
+      </footer>
     </>
   );
 }
