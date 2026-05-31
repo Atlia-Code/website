@@ -91,7 +91,7 @@ function Cursor() {
   function handleLinks() {
     document.querySelectorAll("a").forEach((el) => {
       el.addEventListener("mouseover", () => {
-        (el as HTMLElement).style.color = "#F26522";
+        (el as HTMLElement).style.color = "#1f6626";
       });
       el.addEventListener("mouseout", () => {
         (el as HTMLElement).style.color = "";

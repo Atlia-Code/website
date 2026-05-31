@@ -6,6 +6,11 @@
   color: #000000;
   background-color: #ffffff;
 
+  /* Brand accent */
+  --accent: #1f6626;
+  --accent-rgb: 31, 102, 38;
+  --accent-hover: #184f1e;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -44,17 +49,11 @@
 }
 
 body {
-
   margin: 0;
-
   padding: 0;
-
   width: 100vw;
-
   min-height: 100vh;
-
   overflow-x: hidden;
-
 }
 
 

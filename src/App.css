@@ -11,18 +11,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: stretch;
   position: relative;
 }
 
 .content {
+  position: relative;
   pointer-events: auto;
   text-align: center;
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
-  border-radius: 24px;
+  border-radius: 24px 24px 0 0;
   padding: 32px 24px;
+  width: 72vw;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* soft green glow behind the card */
+.content::before {
+  content: "";
+  position: absolute;
+  inset: -60px;
+  background: radial-gradient(closest-side, rgba(var(--accent-rgb), 0) 30%, rgba(var(--accent-rgb), 0.09));
+  filter: blur(24px);
+  z-index: -1;
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {
@@ -112,7 +127,7 @@
 
 .what-section {
   margin: 2.5rem 0 0;
-  padding: 0 15vw;
+  padding: 0 4%;
   text-align: left;
 }
 
@@ -125,7 +140,7 @@
 
 .who-section {
   margin: 2.5rem 0 1.5rem;
-  padding: 0 15vw;
+  padding: 0 4%;
   text-align: left;
 }
 
@@ -136,6 +151,17 @@
   letter-spacing: 0.08em;
   color: #999;
   margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+/* green leading marker */
+.who-heading::before {
+  content: "";
+  width: 20px;
+  height: 2px;
+  background: var(--accent);
+  margin-right: 12px;
 }
 
 .who-list {
@@ -165,21 +191,25 @@
 }
 
 .book-btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-bottom: 1.2rem;
   padding: 0.6rem 1.4rem;
-  border: 1.5px solid #333;
+  border: 1.5px solid var(--accent);
   border-radius: 6px;
   font-size: 0.95rem;
   font-weight: 500;
-  color: #333;
+  color: var(--accent);
+  background: transparent;
   text-decoration: none;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 
 .book-btn:hover {
-  background: #333;
-  color: #fff;
+  background: var(--accent);
+  /* override the cursor's inline hover color so label stays legible */
+  color: #fff !important;
 }
 
 .contact-line {
@@ -192,12 +222,13 @@
 .linkedin-link {
   display: inline-flex;
   align-items: center;
+  gap: 5px;
   color: #333;
   transition: color 0.2s;
 }
 
 .linkedin-link:hover {
-  color: #0A66C2;
+  color: var(--accent);
 }
 
 .linkedin-logo {

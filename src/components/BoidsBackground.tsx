@@ -12,8 +12,10 @@ class Boid {
   maxForce: number = 0.2;
   maxSpeed: number = 3;
   perceptionRadius: number = 50;
+  index: number = 0;
 
-  constructor(x: number, y: number) {
+  constructor(x: number, y: number, index: number = 0) {
+    this.index = index;
     this.position = { x, y };
     const angle = Math.random() * Math.PI * 2;
     this.velocity = {
@@ -218,6 +220,8 @@ class Boid {
 
   draw(ctx: CanvasRenderingContext2D) {
     const angle = Math.atan2(this.velocity.y, this.velocity.x);
+    // ~18% of the flock fly in brand green, the rest stay black
+    const isGreen = (this.index * 37) % 100 < 18;
     ctx.save();
     ctx.translate(this.position.x, this.position.y);
     ctx.rotate(angle);
@@ -226,7 +230,7 @@ class Boid {
     ctx.lineTo(-4, 4);
     ctx.lineTo(-4, -4);
     ctx.closePath();
-    ctx.fillStyle = "rgba(0, 0, 0, 0.6)";
+    ctx.fillStyle = isGreen ? "rgba(31, 102, 38, 0.72)" : "rgba(0, 0, 0, 0.6)";
     ctx.fill();
     ctx.restore();
   }
@@ -254,7 +258,8 @@ const BoidsBackground: React.FC = () => {
           boidsRef.current.push(
             new Boid(
               Math.random() * canvas.width,
-              Math.random() * canvas.height
+              Math.random() * canvas.height,
+              i
             )
           );
         }
