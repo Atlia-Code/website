@@ -42,8 +42,27 @@
 
 @media (max-width: 768px) {
   .content {
+    width: 100%;
+    border-radius: 0;
+    padding: 24px 20px;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+  }
+
+  .what-section,
+  .who-section {
+    padding: 0;
+  }
+
+  .who-list {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* hide custom cursor on touch devices */
+  #cursor-dot,
+  #cursor-dot-outline {
+    display: none;
   }
 }
 
