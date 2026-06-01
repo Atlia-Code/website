@@ -47,6 +47,11 @@
     padding: 24px 20px;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+    overflow-x: hidden;
+  }
+
+  .content::before {
+    inset: 0;
   }
 
   .what-section,
