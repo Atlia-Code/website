@@ -1,6 +1,7 @@
 import "./App.css";
 import BoidsBackground from "./components/BoidsBackground";
 import Cursor from "./components/Cursor";
+import LogoMarquee from "./components/LogoMarquee";
 import atliaLogo from "./assets/atlia_logo_v1.png";
 import ycLogo from "/Y_Combinator_logo.svg.png";
 
@@ -43,6 +44,7 @@ function App() {
                 businesses that constitute America's backbone.
               </p>
             </section>
+            <LogoMarquee />
             <section className="who-section">
               <h3 className="who-heading">Who we are for</h3>
               <div className="who-list">

@@ -149,6 +149,126 @@
   line-height: 1.6;
 }
 
+/* ── Logo marquee (onyx-style infinite scroll) ───────────────── */
+.marquee {
+  margin: 2.75rem 0 0.5rem;
+  width: 100%;
+}
+
+.marquee-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #aaa;
+  text-align: center;
+  margin: 0 0 1.25rem;
+}
+
+.marquee-viewport {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  /* fade the logos out at both edges */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+
+/* pause on hover so people can read the logos */
+.marquee-viewport:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-item {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* gap between an icon and its wordmark text */
+  gap: 0.5rem;
+  /* horizontal gap between logos */
+  padding: 0 2.5rem;
+}
+
+/* text wordmark rendered next to icon-only marks (e.g. Apple) — uses the
+   Apple system font (San Francisco) on Apple devices, graceful fallback elsewhere */
+.marquee-wordmark {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: calc(1.4rem * var(--marquee-scale, 1));
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: #111;
+  white-space: nowrap;
+  opacity: 0.55;
+  filter: grayscale(1);
+  transition: opacity 0.25s ease;
+}
+
+.marquee-item:hover .marquee-wordmark {
+  opacity: 1;
+}
+
+.marquee-logo {
+  /* height is set per-logo via inline style (see LogoMarquee.tsx) */
+  width: auto;
+  object-fit: contain;
+  /* muted, monochrome until hovered — classic logo-strip look */
+  filter: grayscale(1);
+  opacity: 0.55;
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}
+
+.marquee-item:hover .marquee-logo {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* shift by exactly half the track (the duplicated set) */
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  /* shrink every logo proportionally (per-logo heights are multiplied by this) */
+  .marquee {
+    --marquee-scale: 0.78;
+  }
+
+  .marquee-item {
+    padding: 0 1.5rem;
+  }
+}
+
 .what-section {
   margin: 2.5rem 0 0;
   padding: 0 4%;
