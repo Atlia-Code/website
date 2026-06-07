@@ -10,12 +10,12 @@ import ycLogo from "/YC-withname.webp";
 // proportionally via the --marquee-scale factor in App.css.
 // Add an optional `label` to render the company name next to an icon-only mark.
 const logos = [
-  { src: yaleLogo, alt: "Yale University", height: 27 },
-  { src: kenshoLogo, alt: "Kensho by S&P Global", height: 28 },
-  { src: appleLogo, alt: "Apple", height: 28, label: "Apple" },
-  { src: dukeLogo, alt: "Duke", height: 30 },
-  { src: vanguardLogo, alt: "Vanguard", height: 22 },
-  { src: ycLogo, alt: "Y Combinator", height: 30 },
+  { src: yaleLogo, alt: "Yale University logo", height: 27 },
+  { src: kenshoLogo, alt: "Kensho by S&P Global logo", height: 28 },
+  { src: appleLogo, alt: "Apple logo", height: 28, label: "Apple" },
+  { src: dukeLogo, alt: "Duke University logo", height: 30 },
+  { src: vanguardLogo, alt: "Vanguard logo", height: 22 },
+  { src: ycLogo, alt: "Y Combinator logo", height: 30 },
 ];
 
 function LogoMarquee() {
@@ -30,15 +30,15 @@ function LogoMarquee() {
       <p className="marquee-label">Built by a team from</p>
       <div className="marquee-viewport">
         <div className="marquee-track">
-          {track.map((logo, i) => (
-            <div
-              className="marquee-item"
-              key={i}
-              aria-hidden={i >= logos.length}
-            >
+          {track.map((logo, i) => {
+            // second copy of the list is a visual duplicate for the seamless
+            // loop — hide it from crawlers/screen readers to avoid double counts
+            const isDuplicate = i >= logos.length;
+            return (
+            <div className="marquee-item" key={i} aria-hidden={isDuplicate}>
               <img
                 src={logo.src}
-                alt={logo.alt}
+                alt={isDuplicate ? "" : logo.alt}
                 className="marquee-logo"
                 style={{
                   height: `calc(${logo.height}px * var(--marquee-scale, 1))`,
@@ -48,7 +48,8 @@ function LogoMarquee() {
                 <span className="marquee-wordmark">{logo.label}</span>
               )}
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
