@@ -2,27 +2,23 @@
 
 ## What Atlia Is
 
-Atlia is an AI-native platform built to bring economies of scale to the small-to-medium businesses of America, by building autonomous agentic teams for tasks such as engineering and marketing. Backed by Y Combinator.
+Atlia builds AI-native software that makes traditional small and medium businesses radically more efficient. We turn America's SMBs AI-native. Backed by Y Combinator.
 
-Atlia gives SMBs access to the kind of specialized, high-output teams — software engineers, marketers, distribution teams — that have historically only been available to large companies like Google and Apple. With Atlia, a team of 20 can operate like a team of 40.
+Most SMBs run on legacy workflows, and their data is scattered across email, messages, CRMs, and databases — none of it built for AI. Atlia rebuilds that data into a foundation AI agents can act on, then modernizes the workflows around it. The result: employees get their time back, revenue goes up, and a team of 20 can operate like a team of 200.
 
 ## Who Atlia Is Built For
 
-- **Small-to-medium businesses** across America that want to grow faster without proportionally growing headcount
-- **Operators and founders** running lean teams who need the leverage of large-company capabilities
-- **SMB owners** looking to compete with larger players through AI-driven automation and scale
-- **ETA-style searchers** looking to acquire SMBs — Atlia is the most useful platform for searchers who want to hit the ground running post-acquisition, giving their newly acquired company access to agentic engineering, marketing, and distribution capabilities from Day 1
-- **ETA funds** looking to optimize their portfolio companies — Atlia enables fund managers to deploy economies of scale across their entire portfolio, helping each portfolio company operate with the leverage of a much larger organization
+- **SMBs in physical industries** — businesses in the physical economy, from manufacturing to physical contracting to client-facing healthcare, that run on workflows and tools predating AI
+- **Operators and founders** running traditional businesses who want to do more with the team they already have
+- **SMB owners** looking to free up their employees' time and increase revenue by becoming AI-native
 
 ## What Atlia Does
 
-Atlia builds autonomous agentic teams that handle high-value functions for SMBs:
+- **Unifies your data**: brings together the data scattered across email, messages, CRMs, and databases
+- **Rebuilds it for AI**: transforms that data into a foundation AI agents can actually act on
+- **Modernizes workflows**: rebuilds the workflows on top of that foundation, so AI agents handle the manual, repetitive work
 
-- **Engineering**: AI-native software development and automation agents
-- **Marketing**: Autonomous marketing agents that plan, execute, and optimize campaigns
-- **Distribution**: Agents that expand reach and accelerate go-to-market motion
-
-Atlia brings the economies of scale previously reserved for the largest companies in the world to the businesses that power America's economy.
+Atlia turns traditional American SMBs into leaders in the AI-native world.
 
 ## Company
 
