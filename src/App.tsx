@@ -35,10 +35,10 @@ function App() {
               <p className="what-desc">
                 Atlia builds AI-native software that makes traditional small and
                 medium businesses radically more efficient. Your business data
-                lives in email, messages, CRMs, and databases &mdash; none of it
-                built for AI. We rebuild that data into a foundation AI agents
-                can act on, then modernize the workflows around it &mdash;
-                freeing up your employees' time and increasing revenue.
+                lives in email, messages, CRMs, and traditional databases &mdash;
+                none of it built for AI. We rebuild that data into a foundation
+                AI agents can act on, then modernize the workflows around it
+                &mdash; freeing up your employees' time and increasing revenue.
               </p>
             </section>
             <LogoMarquee />
