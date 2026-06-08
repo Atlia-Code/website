@@ -17,6 +17,15 @@ function App() {
             <img src={atliaLogo} alt="Atlia logo" className="hero-logo" />
             <h2 className="brand-name">Atlia</h2>
             <h1>We make America's small and medium businesses AI-native</h1>
+            <a
+              href="https://www.ycombinator.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="yc-badge"
+            >
+              <img src={ycLogo} alt="Y Combinator" className="yc-logo" />
+              <span>Backed by Y Combinator</span>
+            </a>
             {/* <details className="geo-details">
               <summary className="geo-summary">more</summary>
               <p className="geo-description">
@@ -87,15 +96,6 @@ function App() {
                 <span>LinkedIn</span>
               </a>
             </p>
-            <a
-              href="https://www.ycombinator.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="yc-badge"
-            >
-              <img src={ycLogo} alt="Y Combinator" className="yc-logo" />
-              <span>Backed by Y Combinator</span>
-            </a>
           </div>
         </section>
       </div>

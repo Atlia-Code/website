@@ -107,6 +107,7 @@
   font-size: 14px;
   color: #333;
   background: transparent;
+  text-decoration: none;
   transition: border-color 0.2s;
 }
 
