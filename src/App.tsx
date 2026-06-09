@@ -55,7 +55,9 @@ function App() {
               <h3 className="who-heading">Who we are for</h3>
               <div className="who-list">
                 <div className="who-item">
-                  <p className="who-title">SMBs in physical industries</p>
+                  <p className="who-title">
+                    Businesses in the physical industries
+                  </p>
                   <p className="who-desc">
                     You run a business in the physical economy &mdash; anything
                     from manufacturing to contracting to client-facing
