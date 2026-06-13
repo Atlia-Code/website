@@ -4,6 +4,7 @@ import dukeLogo from "/duke_logo.svg";
 import vanguardLogo from "/vanguard_logo.svg";
 import kenshoLogo from "/kensho_logo.webp";
 import ycLogo from "/YC-withname.webp";
+import rillaLogo from "/rilla_logo.svg";
 
 // Each logo has a different aspect ratio / visual weight, so tweak `height`
 // (in px) per-logo until the row looks balanced. Mobile scales these down
@@ -11,11 +12,12 @@ import ycLogo from "/YC-withname.webp";
 // Add an optional `label` to render the company name next to an icon-only mark.
 const logos = [
   { src: yaleLogo, alt: "Yale University logo", height: 27 },
-  { src: kenshoLogo, alt: "Kensho by S&P Global logo", height: 28 },
+  { src: rillaLogo, alt: "Rilla logo", height: 18 },
   { src: appleLogo, alt: "Apple logo", height: 28, label: "Apple" },
   { src: dukeLogo, alt: "Duke University logo", height: 30 },
   { src: vanguardLogo, alt: "Vanguard logo", height: 22 },
   { src: ycLogo, alt: "Y Combinator logo", height: 30 },
+  { src: kenshoLogo, alt: "Kensho by S&P Global logo", height: 28 },
 ];
 
 function LogoMarquee() {
@@ -35,19 +37,19 @@ function LogoMarquee() {
             // loop — hide it from crawlers/screen readers to avoid double counts
             const isDuplicate = i >= logos.length;
             return (
-            <div className="marquee-item" key={i} aria-hidden={isDuplicate}>
-              <img
-                src={logo.src}
-                alt={isDuplicate ? "" : logo.alt}
-                className="marquee-logo"
-                style={{
-                  height: `calc(${logo.height}px * var(--marquee-scale, 1))`,
-                }}
-              />
-              {logo.label && (
-                <span className="marquee-wordmark">{logo.label}</span>
-              )}
-            </div>
+              <div className="marquee-item" key={i} aria-hidden={isDuplicate}>
+                <img
+                  src={logo.src}
+                  alt={isDuplicate ? "" : logo.alt}
+                  className="marquee-logo"
+                  style={{
+                    height: `calc(${logo.height}px * var(--marquee-scale, 1))`,
+                  }}
+                />
+                {logo.label && (
+                  <span className="marquee-wordmark">{logo.label}</span>
+                )}
+              </div>
             );
           })}
         </div>
