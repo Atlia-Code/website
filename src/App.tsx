@@ -91,12 +91,6 @@ function App() {
                     also be converted into more profitable short-term rentals
                     under our model &mdash; so if you own one, let's talk.
                   </p>
-                  <button
-                    className="book-btn"
-                    onClick={() => setWaitlistOpen(true)}
-                  >
-                    Join the waitlist
-                  </button>
                 </div>
               </div>
             </section>
