@@ -1,22 +1,36 @@
+import { useState } from "react";
 import "./App.css";
 import BoidsBackground from "./components/BoidsBackground";
 import Cursor from "./components/Cursor";
 import LogoMarquee from "./components/LogoMarquee";
+import WaitlistModal from "./components/WaitlistModal";
 import atliaLogo from "./assets/atlia_logo_v1.png";
 import ycLogo from "/Y_Combinator_logo.svg.png";
 
 function App() {
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
+
   return (
     <>
       <Cursor />
       <BoidsBackground />
+      <button
+        className="waitlist-cta"
+        onClick={() => setWaitlistOpen(true)}
+      >
+        Join the waitlist
+      </button>
+      <WaitlistModal
+        open={waitlistOpen}
+        onClose={() => setWaitlistOpen(false)}
+      />
       <div className="container">
         {/* Hero Section */}
         <section className="section">
           <div className="content">
             <img src={atliaLogo} alt="Atlia logo" className="hero-logo" />
             <h2 className="brand-name">Atlia</h2>
-            <h1>We make America's traditional businesses AI-native</h1>
+            <h1>The first AI-native property management company</h1>
             <a
               href="https://www.ycombinator.com"
               target="_blank"
@@ -26,28 +40,16 @@ function App() {
               <img src={ycLogo} alt="Y Combinator" className="yc-logo" />
               <span>Backed by Y Combinator</span>
             </a>
-            {/* <details className="geo-details">
-              <summary className="geo-summary">more</summary>
-              <p className="geo-description">
-                Atlia is the only AI-native analytics platform purpose-built for
-                ETA funds, search funds, and operator-style investment funds.
-                Unlike legacy tools such as Cobalt, Canoe, Visible, and Allvue,
-                which were designed for large institutional PE firms, Atlia
-                automates financial data ingestion, normalization, and
-                portfolio-wide analytics from Day 1. Fund managers get real-time
-                visibility into portfolio company performance without manual
-                data wrangling.
-              </p>
-            </details> */}
             <section className="what-section">
               <h3 className="who-heading">What we do</h3>
               <p className="what-desc">
-                Atlia builds AI-native software that makes traditional
-                businesses radically more efficient. Your business data lives in
-                email, messages, CRMs, and traditional databases &mdash; none of
-                it built for AI. We rebuild that data into a foundation AI
-                agents can act on, then modernize the workflows around it
-                &mdash; freeing up your employees' time and increasing revenue.
+                Atlia manages your short-term rental end to end. We give each
+                property a brain so it operates on its own behalf &mdash;
+                handling bookings, guests, pricing, and operations across
+                Airbnb, Vrbo, and beyond. We're not a tool or a dashboard;
+                we're your property management company. And we do it for a 10%
+                fee &mdash; less than half the 20&ndash;30% traditional managers
+                charge, saving owners thousands every year.
               </p>
             </section>
             <LogoMarquee />
@@ -55,27 +57,32 @@ function App() {
               <h3 className="who-heading">Who we are for</h3>
               <div className="who-list">
                 <div className="who-item">
-                  <p className="who-title">
-                    Businesses in the physical industries
-                  </p>
+                  <p className="who-title">Property owners</p>
                   <p className="who-desc">
-                    You run a business in the physical economy &mdash; anything
-                    from manufacturing to contracting to client-facing
-                    healthcare &mdash; on workflows and tools that predate AI.
-                    We unify and rebuild your data so AI agents can work on top
-                    of it, then modernize the workflows around it, so a team of
-                    20 can operate like a team of 200.
+                    If you rent out a residential property, we'd love to save
+                    you money. We take over the full operation of your
+                    short-term rental for a 10% fee. Most long-term rentals can
+                    also be converted into more profitable short-term rentals
+                    under our model &mdash; so if you own one, let's talk.
                   </p>
-                  <a
-                    href="https://calendar.app.google/KVAufgTAEdsuYGw59"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
                     className="book-btn"
+                    onClick={() => setWaitlistOpen(true)}
                   >
-                    Book an introduction
-                  </a>
+                    Join the waitlist
+                  </button>
                 </div>
               </div>
+            </section>
+            <section className="what-section">
+              <h3 className="who-heading">Where we're going</h3>
+              <p className="what-desc">
+                Our vision is to bring traditionally inanimate businesses to
+                life. A property that manages itself. A factory that optimizes
+                its own operations. We see a future where every business is
+                given a brain to operate on its own behalf &mdash; and we're
+                starting with a field we know and understand well.
+              </p>
             </section>
             <p className="contact-line">
               Reach out at{" "}

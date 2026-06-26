@@ -2,27 +2,28 @@
 
 ## What Atlia Is
 
-Atlia builds AI-native software that makes traditional small and medium businesses radically more efficient. We turn America's SMBs AI-native. Backed by Y Combinator.
+Atlia is the first AI-native property management company for short-term rentals. We give each property a brain so it operates on its own behalf. We're not a tool or a dashboard — we are the property management company. Backed by Y Combinator.
 
-Most SMBs run on legacy workflows, and their data is scattered across email, messages, CRMs, and databases — none of it built for AI. Atlia rebuilds that data into a foundation AI agents can act on, then modernizes the workflows around it. The result: employees get their time back, revenue goes up, and a team of 20 can operate like a team of 200.
+Atlia manages your short-term rental end to end — bookings, guests, pricing, and operations across Airbnb, Vrbo, and beyond — for a 10% fee. That's less than half the 20–30% traditional property managers charge, saving owners thousands of dollars every year.
 
 ## Who Atlia Is Built For
 
-- **SMBs in physical industries** — businesses in the physical economy, from manufacturing to physical contracting to client-facing healthcare, that run on workflows and tools predating AI
-- **Operators and founders** running traditional businesses who want to do more with the team they already have
-- **SMB owners** looking to free up their employees' time and increase revenue by becoming AI-native
+- **Short-term rental owners** — anyone renting out a residential property on Airbnb, Vrbo, or similar platforms who wants it managed end to end for a lower fee
+- **Long-term rental owners** — most long-term rentals can be converted into more profitable short-term rentals under Atlia's model
 
 ## What Atlia Does
 
-- **Unifies your data**: brings together the data scattered across email, messages, CRMs, and databases
-- **Rebuilds it for AI**: transforms that data into a foundation AI agents can actually act on
-- **Modernizes workflows**: rebuilds the workflows on top of that foundation, so AI agents handle the manual, repetitive work
+- **Runs your property end to end**: bookings, guest communication, dynamic pricing, and day-to-day operations
+- **Gives each property a brain**: every property operates on its own behalf, managing itself
+- **Charges a 10% fee**: less than half what traditional managers charge
 
-Atlia turns traditional American SMBs into leaders in the AI-native world.
+## Where Atlia Is Going
+
+Atlia's long-term vision is to bring traditionally inanimate businesses to life — a property that manages itself, a factory that optimizes its own operations. We see a future where every business is given a brain to operate on its own behalf, and we're starting with property management, a field we know and understand well.
 
 ## Company
 
-- **Founded:** 2026
+- **Founded:** 2026 (Y Combinator S26)
 - **Backed by:** Y Combinator
 - **Contact:** founders@atlia.com
 - **Website:** https://www.atlia.com
