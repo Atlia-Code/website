@@ -14,7 +14,7 @@ function Cursor() {
 
   useEffect(() => {
     const onMouseMove = (event: MouseEvent) => {
-      const { pageX: x, pageY: y } = event;
+      const { clientX: x, clientY: y } = event;
       setMousePosition({ x, y });
       positionDot(event);
     };
@@ -56,8 +56,8 @@ function Cursor() {
   function positionDot(e: MouseEvent) {
     cursorVisible.current = true;
     toggleCursorVisibility();
-    endX.current = e.pageX;
-    endY.current = e.pageY;
+    endX.current = e.clientX;
+    endY.current = e.clientY;
     if (cursorDot.current) {
       cursorDot.current.style.top = endY.current + "px";
       cursorDot.current.style.left = endX.current + "px";

@@ -33,11 +33,12 @@
 .content::before {
   content: "";
   position: absolute;
-  inset: -60px;
+  inset: -60px 0;
   background: radial-gradient(closest-side, rgba(var(--accent-rgb), 0) 30%, rgba(var(--accent-rgb), 0.09));
   filter: blur(24px);
   z-index: -1;
   pointer-events: none;
+  overflow: hidden;
 }
 
 @media (max-width: 768px) {
