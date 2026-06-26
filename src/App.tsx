@@ -14,10 +14,7 @@ function App() {
     <>
       <Cursor />
       <BoidsBackground />
-      <button
-        className="waitlist-cta"
-        onClick={() => setWaitlistOpen(true)}
-      >
+      <button className="waitlist-cta" onClick={() => setWaitlistOpen(true)}>
         Join the waitlist
       </button>
       <WaitlistModal
@@ -41,15 +38,44 @@ function App() {
               <span>Backed by Y Combinator</span>
             </a>
             <section className="what-section">
-              <h3 className="who-heading">What we do</h3>
+              <h3 className="who-heading">The Problem</h3>
               <p className="what-desc">
-                Atlia manages your short-term rental end to end. We give each
-                property a brain so it operates on its own behalf &mdash;
+                Traditional short-term property managers charge{" "}
+                <strong>20&ndash;35%</strong> of total booking revenue &mdash;
+                costing landlords thousands of dollars every year. They use 5-8
+                different softwares tools that don't communicate well with each
+                other, resulting in worse guest experiences.
+              </p>
+            </section>
+            <section className="what-section">
+              <h3 className="who-heading">The Solution</h3>
+              <p className="what-desc">
+                A unified, end-to-end platform streamlining operations &mdash;
                 handling bookings, guests, pricing, and operations across
-                Airbnb, Vrbo, and beyond. We're not a tool or a dashboard;
-                we're your property management company. And we do it for a 10%
-                fee &mdash; less than half the 20&ndash;30% traditional managers
-                charge, saving owners thousands every year.
+                Airbnb, Vrbo, and beyond. We take over the full operation of
+                your short-term rental for a flat <strong>10% fee</strong>, less
+                than half what traditional managers charge.
+              </p>
+              {/* <div className="fee-compare">
+                <div className="fee-item fee-old">
+                  <span className="fee-num">20–35%</span>
+                  <span className="fee-label">Traditional managers</span>
+                </div>
+                <div className="fee-arrow">→</div>
+                <div className="fee-item fee-new">
+                  <span className="fee-num">10%</span>
+                  <span className="fee-label">Atlia</span>
+                </div>
+              </div> */}
+            </section>
+            <section className="what-section">
+              <h3 className="who-heading">Why Us</h3>
+              <p className="what-desc">
+                We&rsquo;ve spent the past year managing short-term rental
+                properties ourselves &mdash; coordinating guests, optimizing
+                pricing, and delivering the kind of five-star experiences that
+                keep bookings full. We built Atlia because we know what it
+                takes, and we know it can be done better.
               </p>
             </section>
             <LogoMarquee />
@@ -86,7 +112,8 @@ function App() {
             </section>
             <p className="contact-line">
               Reach out at{" "}
-              <a href="mailto:founders@atlia.com">founders@atlia.com</a>|
+              <a href="mailto:founders@atlia.com">founders@atlia.com</a>
+              <span className="contact-sep">|</span>
               <a
                 href="https://www.linkedin.com/company/atlia"
                 target="_blank"
