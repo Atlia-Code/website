@@ -30,18 +30,11 @@ function confirmationText(firstName: string): string {
   const name = firstName ? ` ${firstName}` : "";
   return `Hi${name},
 
-Thanks for joining the Atlia waitlist — we're glad you're here.
+Thanks for joining the list — we'll be in contact soon.
 
-Atlia is the first AI-native property management company for short-term
-rentals. We give each property a brain so it runs itself, and we do it for a
-10% fee — less than half what traditional managers charge.
+If you have any questions, feel free to text us at (909) 729-6282 or (732) 610-3038.
 
-We'll be in touch soon. In the meantime, just reply to this email if you have
-any questions at all.
-
-— Shaan & Edmond
-Atlia
-founders@atlia.com`;
+Shaan and Edmond`;
 }
 
 Deno.serve(async (req) => {

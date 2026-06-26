@@ -6,7 +6,7 @@ type Props = {
   onClose: () => void;
 };
 
-type Status = "idle" | "submitting" | "success" | "error";
+type Status = "idle" | "submitting" | "success" | "updated" | "error";
 
 const EMPTY = {
   firstName: "",
@@ -109,29 +109,28 @@ export default function WaitlistModal({ open, onClose }: Props) {
     setStatus("submitting");
     setErrorMsg("");
 
-    const { error } = await supabase.from("waitlist").insert({
-      first_name: form.firstName.trim(),
-      last_name: form.lastName.trim(),
-      email: form.email.trim().toLowerCase(),
-      phone: form.phone.trim() || null,
-      referral: form.referral.trim() || null,
-      city: form.city.trim(),
-      state: form.state,
-      num_properties: Number(form.numProperties),
+    // Writes go through the join_waitlist RPC (a SECURITY DEFINER function), so
+    // a re-submit with an existing email updates that entry instead of failing.
+    // It returns 'inserted' on first signup or 'updated' on a re-submit. Only
+    // the insert path fires the confirmation-email webhook.
+    const { data, error } = await supabase.rpc("join_waitlist", {
+      p_first_name: form.firstName.trim(),
+      p_last_name: form.lastName.trim(),
+      p_email: form.email.trim().toLowerCase(),
+      p_phone: form.phone.trim() || null,
+      p_referral: form.referral.trim() || null,
+      p_city: form.city.trim(),
+      p_state: form.state,
+      p_num_properties: Number(form.numProperties),
     });
 
     if (error) {
-      // 23505 = unique violation: this email is already signed up.
-      if (error.code === "23505") {
-        setStatus("success");
-        return;
-      }
       setStatus("error");
       setErrorMsg("Something went wrong. Please try again or email founders@atlia.com.");
       return;
     }
 
-    setStatus("success");
+    setStatus(data === "updated" ? "updated" : "success");
   };
 
   return (
@@ -153,6 +152,18 @@ export default function WaitlistModal({ open, onClose }: Props) {
             <p>
               Thanks for joining the Atlia waitlist. We'll be in touch soon at{" "}
               <strong>{form.email || "your email"}</strong>.
+            </p>
+            <button className="waitlist-submit" onClick={onClose}>
+              Done
+            </button>
+          </div>
+        ) : status === "updated" ? (
+          <div className="waitlist-success">
+            <h2>Details updated ✦</h2>
+            <p>
+              <strong>{form.email || "This email"}</strong> was already on the
+              list, so we've updated your details. You're all set — we'll be in
+              touch soon.
             </p>
             <button className="waitlist-submit" onClick={onClose}>
               Done
