@@ -220,30 +220,32 @@ export default function WaitlistModal({ open, onClose }: Props) {
               )}
             </label>
 
-            <label>
-              Phone <span className="waitlist-optional">(optional)</span>
-              <input
-                type="tel"
-                value={form.phone}
-                onChange={update("phone")}
-                onBlur={markTouched("phone")}
-                className={inputClass("phone")}
-                autoComplete="tel"
-                placeholder="(555) 123-4567"
-              />
-              {errorFor("phone") && (
-                <span className="waitlist-field-error">{errorFor("phone")}</span>
-              )}
-            </label>
+            <div className="waitlist-row">
+              <label>
+                Phone <span className="waitlist-optional">(optional)</span>
+                <input
+                  type="tel"
+                  value={form.phone}
+                  onChange={update("phone")}
+                  onBlur={markTouched("phone")}
+                  className={inputClass("phone")}
+                  autoComplete="tel"
+                  placeholder="(555) 123-4567"
+                />
+                {errorFor("phone") && (
+                  <span className="waitlist-field-error">{errorFor("phone")}</span>
+                )}
+              </label>
 
-            <label>
-              Referral name or code <span className="waitlist-optional">(optional)</span>
-              <input
-                value={form.referral}
-                onChange={update("referral")}
-                placeholder="Who sent you?"
-              />
-            </label>
+              <label>
+                Referral <span className="waitlist-optional">(optional)</span>
+                <input
+                  value={form.referral}
+                  onChange={update("referral")}
+                  placeholder="Referral name or code."
+                />
+              </label>
+            </div>
 
             <div className="waitlist-row">
               <label>

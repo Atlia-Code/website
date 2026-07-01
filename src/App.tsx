@@ -1,135 +1,684 @@
-import { useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type FormEvent,
+} from "react";
 import "./App.css";
-import BoidsBackground from "./components/BoidsBackground";
-import Cursor from "./components/Cursor";
-import LogoMarquee from "./components/LogoMarquee";
 import WaitlistModal from "./components/WaitlistModal";
 import atliaLogo from "./assets/atlia_logo_v1.png";
-import ycLogo from "/Y_Combinator_logo.svg.png";
+
+const navLinks = [
+  { label: "Home", href: "#top" },
+  { label: "Product", href: "#product" },
+  { label: "Owners", href: "#owners" },
+  { label: "FAQ", href: "#faq" },
+];
+
+type GraphNode = {
+  id: string;
+  label: string;
+  category: string;
+  detail: string;
+  x: number;
+  y: number;
+  size: number;
+  tone: "center" | "sage" | "terracotta" | "charcoal" | "smoke";
+};
+
+const graphNodes: GraphNode[] = [
+  {
+    id: "property",
+    label: "Property",
+    category: "Core memory",
+    detail:
+      "Location, listing context, house rules, access notes, owner preferences, and operational history stay attached to the home.",
+    x: 52,
+    y: 52,
+    size: 104,
+    tone: "center",
+  },
+  {
+    id: "guest-experience",
+    label: "Guest Experience",
+    category: "Guest operations",
+    detail:
+      "Atlia keeps the right tone, check-in instructions, issue handling, and review follow-up ready for every guest.",
+    x: 30,
+    y: 24,
+    size: 74,
+    tone: "sage",
+  },
+  {
+    id: "maintenance",
+    label: "Maintenance",
+    category: "Property care",
+    detail:
+      "Plumbing, HVAC, appliance notes, vendor preferences, and escalation rules are kept in context before problems become owner work.",
+    x: 22,
+    y: 60,
+    size: 70,
+    tone: "terracotta",
+  },
+  {
+    id: "recommendations",
+    label: "Local Recommendations",
+    category: "Local context",
+    detail:
+      "Restaurants, beaches, activities, parking tips, and owner-approved suggestions are available for guest messages.",
+    x: 68,
+    y: 22,
+    size: 76,
+    tone: "smoke",
+  },
+  {
+    id: "pricing",
+    label: "Pricing",
+    category: "Revenue",
+    detail:
+      "Calendar demand, minimum stays, seasonal changes, and local events inform pricing decisions before they are surfaced.",
+    x: 78,
+    y: 50,
+    size: 66,
+    tone: "terracotta",
+  },
+  {
+    id: "turnovers",
+    label: "Turnovers",
+    category: "Clean operations",
+    detail:
+      "Cleaning checklists, supply levels, inspection notes, and arrival timing stay coordinated between bookings.",
+    x: 58,
+    y: 80,
+    size: 68,
+    tone: "sage",
+  },
+  {
+    id: "owner-reporting",
+    label: "Owner Reporting",
+    category: "Owner visibility",
+    detail:
+      "Revenue, fees, upcoming work, maintenance status, and property health are summarized without extra dashboards.",
+    x: 34,
+    y: 80,
+    size: 68,
+    tone: "charcoal",
+  },
+  {
+    id: "house-rules",
+    label: "House Rules",
+    category: "Operating rules",
+    detail:
+      "Parking, pets, noise, trash, access instructions, and property-specific boundaries are applied consistently.",
+    x: 72,
+    y: 72,
+    size: 64,
+    tone: "sage",
+  },
+];
+
+const graphNodeById = graphNodes.reduce<Record<string, GraphNode>>(
+  (lookup, node) => {
+    lookup[node.id] = node;
+    return lookup;
+  },
+  {},
+);
+
+const graphLinks = [
+  ["property", "guest-experience"],
+  ["property", "maintenance"],
+  ["property", "recommendations"],
+  ["property", "pricing"],
+  ["property", "turnovers"],
+  ["property", "owner-reporting"],
+  ["property", "house-rules"],
+  ["guest-experience", "recommendations"],
+  ["guest-experience", "house-rules"],
+  ["maintenance", "turnovers"],
+  ["pricing", "owner-reporting"],
+  ["turnovers", "owner-reporting"],
+  ["house-rules", "recommendations"],
+] as const;
+
+const benefits = [
+  {
+    title: "Works in the background",
+    text: "Atlia coordinates guest messages, pricing checks, turnovers, and routine owner updates without adding another dashboard to manage.",
+    tone: "mint",
+  },
+  {
+    title: "Owners stay in control",
+    text: "Clear approvals, transparent reporting, and a flat 10% management fee keep the model simple from the first booking onward.",
+    tone: "stone",
+  },
+  {
+    title: "Knows your property",
+    text: "The system keeps context on house rules, vendors, calendars, pricing, guests, and property-specific operating details.",
+    tone: "dark",
+  },
+];
+
+const faqs = [
+  {
+    question: "What is Atlia?",
+    answer:
+      "Atlia is an AI-native property management company for short-term rental owners. We combine software and operations to run bookings, guests, pricing, and day-to-day coordination.",
+  },
+  {
+    question: "How long does onboarding take?",
+    answer:
+      "Most properties can be reviewed and prepared within a few days once we have listing access, property details, calendar context, and operating preferences.",
+  },
+  {
+    question: "Does the AI act without approval?",
+    answer:
+      "High-impact actions can be reviewed by the owner or operator. The goal is to remove repetitive work while keeping clear control over important decisions.",
+  },
+  {
+    question: "Does Atlia replace my existing tools?",
+    answer:
+      "Atlia can work around the tools owners already use, then consolidate workflows where it improves speed, quality, and visibility.",
+  },
+  {
+    question: "What kinds of properties are a fit?",
+    answer:
+      "We are focused on residential short-term rentals, especially owners who want professional operations without traditional 20-35% management fees.",
+  },
+  {
+    question: "How is Atlia priced?",
+    answer:
+      "Atlia manages short-term rentals for a flat 10% fee, designed to be materially lower than traditional managers while keeping the owner experience professional.",
+  },
+];
+
+type LoginPageProps = {
+  onBack: () => void;
+};
+
+function LoginPage({ onBack }: LoginPageProps) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError("Wrong email or password.");
+  };
+
+  return (
+    <section className="login-page" id="login" aria-labelledby="login-title">
+      <div className="login-shell">
+        <div className="login-copy">
+          <p className="section-eyebrow">Login</p>
+          <h1 id="login-title">Atlia owner portal</h1>
+          <p>
+            Account access is not available yet. Join the waitlist to be
+            notified when the portal opens.
+          </p>
+          <button className="login-back" type="button" onClick={onBack}>
+            Back to site
+          </button>
+        </div>
+
+        <form className="login-card" onSubmit={handleSubmit} noValidate>
+          <h2>Sign in</h2>
+          <label>
+            Email
+            <input
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              autoComplete="email"
+            />
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              autoComplete="current-password"
+            />
+          </label>
+          {error && <p className="login-error">{error}</p>}
+          <button className="login-submit" type="submit">
+            Login
+          </button>
+        </form>
+      </div>
+    </section>
+  );
+}
 
 function App() {
   const [waitlistOpen, setWaitlistOpen] = useState(false);
+  const [navScrolled, setNavScrolled] = useState(false);
+  const [activeFaq, setActiveFaq] = useState(-1);
+  const [activeGraphNodeId, setActiveGraphNodeId] = useState("property");
+  const [loginPageOpen, setLoginPageOpen] = useState(false);
+  const waitlistPromptShownRef = useRef(false);
+
+  const openWaitlist = () => {
+    waitlistPromptShownRef.current = true;
+    setWaitlistOpen(true);
+  };
+  const showSite = () => {
+    setLoginPageOpen(false);
+    requestAnimationFrame(() => {
+      document.querySelector("#top")?.scrollIntoView({ block: "start" });
+    });
+  };
+  const openLoginPage = () => {
+    setWaitlistOpen(false);
+    setLoginPageOpen(true);
+    window.history.pushState(null, "", "#login");
+    requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
+  };
+  const activeGraphNode =
+    graphNodeById[activeGraphNodeId] ?? graphNodeById.property;
+
+  useEffect(() => {
+    const updateNav = () => setNavScrolled(window.scrollY > 120);
+    updateNav();
+    window.addEventListener("scroll", updateNav, { passive: true });
+    return () => window.removeEventListener("scroll", updateNav);
+  }, []);
+
+  useEffect(() => {
+    const scrollToHash = () => {
+      const target = window.location.hash;
+      if (target === "#login") {
+        setLoginPageOpen(true);
+        requestAnimationFrame(() => window.scrollTo({ top: 0 }));
+        return;
+      }
+      if (!target) return;
+      setLoginPageOpen(false);
+      const element = document.querySelector(target);
+      element?.scrollIntoView({ block: "start" });
+    };
+
+    requestAnimationFrame(scrollToHash);
+    window.addEventListener("hashchange", scrollToHash);
+    return () => window.removeEventListener("hashchange", scrollToHash);
+  }, []);
+
+  useEffect(() => {
+    if (loginPageOpen) return;
+
+    const faqSection = document.querySelector("#faq");
+    if (!faqSection) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        if (waitlistPromptShownRef.current) {
+          observer.disconnect();
+          return;
+        }
+
+        waitlistPromptShownRef.current = true;
+        setWaitlistOpen(true);
+        observer.disconnect();
+      },
+      {
+        rootMargin: "0px 0px -20% 0px",
+        threshold: 0.15,
+      },
+    );
+
+    observer.observe(faqSection);
+    return () => observer.disconnect();
+  }, [loginPageOpen]);
 
   return (
-    <>
-      <Cursor />
-      <BoidsBackground />
-      <button className="waitlist-cta" onClick={() => setWaitlistOpen(true)}>
-        Join the waitlist
-      </button>
+    <div className="site-shell" id="top">
       <WaitlistModal
         open={waitlistOpen}
         onClose={() => setWaitlistOpen(false)}
       />
-      <div className="container">
-        {/* Hero Section */}
-        <section className="section">
-          <div className="content">
-            <img src={atliaLogo} alt="Atlia logo" className="hero-logo" />
-            <h2 className="brand-name">Atlia</h2>
-            <h1>The first AI-native property management company</h1>
+
+      <nav
+        className={`site-nav${
+          navScrolled || loginPageOpen ? " site-nav--scrolled" : ""
+        }`}
+        aria-label="Main navigation"
+      >
+        <div className="nav-main">
+          <div className="nav-links" aria-label="Primary">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={() => setLoginPageOpen(false)}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          <a
+            className="brand-link"
+            href="#top"
+            aria-label="Atlia home"
+            onClick={() => setLoginPageOpen(false)}
+          >
+            <img className="brand-mark" src={atliaLogo} alt="" />
+            <span className="brand-word">atlia</span>
+          </a>
+
+          <div className="nav-actions">
+            <button className="nav-login" type="button" onClick={openLoginPage}>
+              Login
+            </button>
+            <button
+              className="demo-button demo-button--nav"
+              onClick={openWaitlist}
+            >
+              <span>Join the waitlist</span>
+              <span className="demo-arrow" aria-hidden="true">
+                →
+              </span>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <main>
+        {loginPageOpen ? (
+          <LoginPage onBack={showSite} />
+        ) : (
+          <>
+            <section className="hero-section" aria-labelledby="hero-title">
+          <video
+            className="hero-media"
+            poster="/atlia-main-hero.png"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+          >
+            <source src="/atlia-hero-loop.mp4" type="video/mp4" />
+          </video>
+          <div className="hero-vignette" aria-hidden="true" />
+
+          <div className="hero-copy">
+            <h1 id="hero-title">The AI-native Property Management Company</h1>
+            <div className="hero-support">
+              <p>
+                We manage your short term rentals for half of the industry
+                standard price. And, we do it very well.
+              </p>
+              <a
+                className="yc-link"
+                href="https://www.ycombinator.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Backed by Y Combinator
+              </a>
+            </div>
+          </div>
+            </section>
+
+            <section className="page-section product-section" id="product">
+          <div className="section-grid section-grid--intro">
+            <div>
+              <p className="section-eyebrow">Operating model</p>
+              <h2>Property management with software in the loop</h2>
+            </div>
+            <p className="section-lede">
+              Atlia is AI-driven, but always monitored and trained by real
+              property managers. It handles guests, cleaners, pricing, owner
+              reporting, and day-to-day decisions with experienced operators
+              supervising the system.
+            </p>
+          </div>
+
+          <div className="product-visual" aria-label="Atlia property knowledge graph">
+            <div className="knowledge-graph">
+              <div className="graph-canvas">
+                <svg
+                  className="graph-links"
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  {graphLinks.map(([fromId, toId]) => {
+                    const fromNode = graphNodeById[fromId];
+                    const toNode = graphNodeById[toId];
+                    const isActive =
+                      activeGraphNodeId === fromId || activeGraphNodeId === toId;
+
+                    return (
+                      <line
+                        key={`${fromId}-${toId}`}
+                        className={`graph-link${isActive ? " graph-link--active" : ""}`}
+                        x1={fromNode.x}
+                        y1={fromNode.y}
+                        x2={toNode.x}
+                        y2={toNode.y}
+                      />
+                    );
+                  })}
+                </svg>
+
+                {graphNodes.map((node) => {
+                  const isActive = activeGraphNodeId === node.id;
+
+                  return (
+                    <button
+                      key={node.id}
+                      className={`graph-node graph-node--${node.tone}${
+                        isActive ? " graph-node--active" : ""
+                      }`}
+                      style={
+                        {
+                          "--node-size": `${node.size}px`,
+                          left: `${node.x}%`,
+                          top: `${node.y}%`,
+                        } as CSSProperties
+                      }
+                      type="button"
+                      aria-label={node.label}
+                      aria-describedby="graph-info"
+                      aria-pressed={isActive}
+                      onClick={() => setActiveGraphNodeId(node.id)}
+                      onFocus={() => setActiveGraphNodeId(node.id)}
+                      onMouseEnter={() => setActiveGraphNodeId(node.id)}
+                    />
+                  );
+                })}
+              </div>
+
+              <div className="graph-info" id="graph-info" aria-live="polite">
+                <p>{activeGraphNode.category}</p>
+                <h3>{activeGraphNode.label}</h3>
+                <span>{activeGraphNode.detail}</span>
+              </div>
+            </div>
+          </div>
+            </section>
+
+            <section className="page-section benefits-section" id="owners">
+          <div className="section-grid section-grid--benefits">
+            <div>
+              <p className="section-eyebrow">Owner outcomes</p>
+              <h2>What owners get back</h2>
+            </div>
+            <p className="section-lede">
+              No administration, lower management fees, and better guest
+              operations without asking owners to become property managers.
+            </p>
+            <button className="demo-button demo-button--light" onClick={openWaitlist}>
+              <span>Join the waitlist</span>
+              <span className="demo-arrow" aria-hidden="true">
+                →
+              </span>
+            </button>
+          </div>
+
+          <div className="benefit-cards">
+            {benefits.map((benefit, index) => (
+              <article className="benefit-card" key={benefit.title}>
+                <div className={`benefit-visual benefit-visual--${benefit.tone}`}>
+                  <div className="benefit-window benefit-window--left">
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                  <div className="benefit-window benefit-window--right">
+                    <strong>atlia</strong>
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                  <div className="benefit-orb">{index + 1}</div>
+                </div>
+                <div className="benefit-copy">
+                  <h3>{benefit.title}</h3>
+                  <p>{benefit.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+            </section>
+
+            <section className="page-section faq-section" id="faq">
+          <div className="section-grid section-grid--faq">
+            <div>
+              <p className="section-eyebrow">Questions</p>
+              <h2>Common things owners ask us</h2>
+              <p className="faq-intro">
+                Everything you need to know about Atlia's AI-native property
+                management platform.
+              </p>
+            </div>
+            <div className="faq-list">
+              {faqs.map((faq, index) => {
+                const expanded = activeFaq === index;
+                return (
+                  <div
+                    className={`faq-item${expanded ? " faq-item--open" : ""}`}
+                    key={faq.question}
+                  >
+                    <button
+                      className="faq-question"
+                      type="button"
+                      aria-expanded={expanded}
+                      onClick={() => setActiveFaq(expanded ? -1 : index)}
+                    >
+                      <span className="faq-chevron" aria-hidden="true">
+                        ›
+                      </span>
+                      <span>{faq.question}</span>
+                    </button>
+                    <div className="faq-answer" aria-hidden={!expanded}>
+                      <p>{faq.answer}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+            </section>
+
+            <section className="closing-section" aria-labelledby="closing-title">
+          <img
+            className="closing-media"
+            src="/atlia-closing-hotel.png"
+            alt="A managed hospitality property at night"
+          />
+          <div className="closing-overlay" aria-hidden="true" />
+          <div className="closing-copy">
+            <h2 id="closing-title">
+              Professional STR management, rebuilt around owners.
+            </h2>
+            <p>
+              Great hospitality should not require a dozen tools, constant
+              coordination, or traditional management fees.
+            </p>
+            <button className="demo-button demo-button--hero" onClick={openWaitlist}>
+              <span>Join the waitlist</span>
+              <span className="demo-arrow" aria-hidden="true">
+                →
+              </span>
+            </button>
+          </div>
+            </section>
+          </>
+        )}
+      </main>
+
+      <footer className="site-footer">
+        <div className="footer-main">
+          <div className="footer-brand">
+            <a
+              className="footer-logo"
+              href="#top"
+              aria-label="Atlia home"
+              onClick={() => setLoginPageOpen(false)}
+            >
+              <img src={atliaLogo} alt="" />
+              <span>atlia</span>
+            </a>
+            <p>
+              The AI-native property management company for short-term rental
+              owners.
+            </p>
+          </div>
+
+          <div className="footer-column">
+            <h3>Product</h3>
+            <a href="#product" onClick={() => setLoginPageOpen(false)}>
+              Property intelligence
+            </a>
+            <a href="#owners" onClick={() => setLoginPageOpen(false)}>
+              Owner benefits
+            </a>
+            <a href="#faq" onClick={() => setLoginPageOpen(false)}>
+              FAQ
+            </a>
+          </div>
+
+          <div className="footer-column">
+            <h3>Owners</h3>
+            <button type="button" onClick={openWaitlist}>
+              Join the waitlist
+            </button>
+            <a href="#top" onClick={() => setLoginPageOpen(false)}>
+              Pricing
+            </a>
+            <a href="#owners" onClick={() => setLoginPageOpen(false)}>
+              Management
+            </a>
+          </div>
+
+          <div className="footer-column">
+            <h3>Company</h3>
+            <button type="button" onClick={openLoginPage}>
+              Login
+            </button>
+            <a href="https://www.linkedin.com/company/atlia">LinkedIn</a>
             <a
               href="https://www.ycombinator.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="yc-badge"
             >
-              <img src={ycLogo} alt="Y Combinator" className="yc-logo" />
-              <span>Backed by Y Combinator</span>
+              Y Combinator
             </a>
-            <section className="what-section">
-              <h3 className="who-heading">The Problem</h3>
-              <p className="what-desc">
-                Traditional short-term property managers charge{" "}
-                <strong>20&ndash;35%</strong> of total booking revenue &mdash;
-                costing landlords thousands of dollars every year. They use 5-8
-                different softwares tools that don't communicate well with each
-                other, resulting in worse guest experiences.
-              </p>
-            </section>
-            <section className="what-section">
-              <h3 className="who-heading">The Solution</h3>
-              <p className="what-desc">
-                A unified, end-to-end platform streamlining operations &mdash;
-                handling bookings, guests, pricing, and operations across
-                Airbnb, Vrbo, and beyond. We take over the full operation of
-                your short-term rental for a flat <strong>10% fee</strong>, less
-                than half what traditional managers charge.
-              </p>
-              {/* <div className="fee-compare">
-                <div className="fee-item fee-old">
-                  <span className="fee-num">20–35%</span>
-                  <span className="fee-label">Traditional managers</span>
-                </div>
-                <div className="fee-arrow">→</div>
-                <div className="fee-item fee-new">
-                  <span className="fee-num">10%</span>
-                  <span className="fee-label">Atlia</span>
-                </div>
-              </div> */}
-            </section>
-            <section className="what-section">
-              <h3 className="who-heading">Why Us</h3>
-              <p className="what-desc">
-                We&rsquo;ve spent the past year managing short-term rental
-                properties ourselves &mdash; coordinating guests, optimizing
-                pricing, and delivering the kind of five-star experiences that
-                keep bookings full. We built Atlia because we know what it
-                takes, and we know it can be done better.
-              </p>
-            </section>
-            <LogoMarquee />
-            <section className="who-section">
-              <h3 className="who-heading">Who we are for</h3>
-              <div className="who-list">
-                <div className="who-item">
-                  <p className="who-title">Property owners</p>
-                  <p className="who-desc">
-                    If you rent out a residential property, we'd love to save
-                    you money. We take over the full operation of your
-                    short-term rental for a 10% fee. Most long-term rentals can
-                    also be converted into more profitable short-term rentals
-                    under our model &mdash; so if you own one, let's talk.
-                  </p>
-                </div>
-              </div>
-            </section>
-            <section className="what-section">
-              <h3 className="who-heading">Where we're going</h3>
-              <p className="what-desc">
-                Our vision is to bring traditionally inanimate businesses to
-                life. A property that manages itself. A factory that optimizes
-                its own operations. We see a future where every business is
-                given a brain to operate on its own behalf &mdash; and we're
-                starting with a field we know and understand well.
-              </p>
-            </section>
-            <p className="contact-line">
-              Reach out at{" "}
-              <a href="mailto:founders@atlia.com">founders@atlia.com</a>
-              <span className="contact-sep">|</span>
-              <a
-                href="https://www.linkedin.com/company/atlia"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="linkedin-link"
-                aria-label="Atlia on LinkedIn"
-              >
-                <svg
-                  className="linkedin-logo"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-                <span>LinkedIn</span>
-              </a>
-            </p>
           </div>
-        </section>
-      </div>
-    </>
+        </div>
+        <div className="footer-legal">
+          <span>© 2026 Atlia. All rights reserved.</span>
+        </div>
+      </footer>
+    </div>
   );
 }
 
