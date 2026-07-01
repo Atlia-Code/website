@@ -99,15 +99,6 @@ function App() {
         className={`site-nav${navScrolled ? " site-nav--scrolled" : ""}`}
         aria-label="Main navigation"
       >
-        <button className="announcement-link" onClick={openWaitlist}>
-          <span>Backed by Y Combinator</span>
-          <span className="announcement-separator">·</span>
-          <span>Join the early access list</span>
-          <span className="announcement-arrow" aria-hidden="true">
-            →
-          </span>
-        </button>
-
         <div className="nav-main">
           <div className="nav-links" aria-label="Primary">
             {navLinks.map((link) => (
@@ -130,7 +121,7 @@ function App() {
               className="demo-button demo-button--nav"
               onClick={openWaitlist}
             >
-              <span>Book a demo</span>
+              <span>Join the waitlist</span>
               <span className="demo-arrow" aria-hidden="true">
                 →
               </span>
@@ -141,15 +132,22 @@ function App() {
 
       <main>
         <section className="hero-section" aria-labelledby="hero-title">
-          <img
+          <video
             className="hero-media"
-            src="/atlia-main-hero.png"
-            alt="A mountain lake property viewed through a warm living room"
-          />
+            poster="/atlia-main-hero.png"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+          >
+            <source src="/atlia-hero-loop.mp4" type="video/mp4" />
+          </video>
           <div className="hero-vignette" aria-hidden="true" />
 
           <div className="hero-copy">
-            <h1 id="hero-title">AI agents for real estate.</h1>
+            <h1 id="hero-title">The AI-native Property Management Company</h1>
             <p>
               Voice-powered AI agents that pull deed, property, and tax records
               automatically, auto-fill contracts, and move transactions from
@@ -255,7 +253,7 @@ function App() {
               operations without asking owners to become property managers.
             </p>
             <button className="demo-button demo-button--light" onClick={openWaitlist}>
-              <span>Book a demo</span>
+              <span>Join the waitlist</span>
               <span className="demo-arrow" aria-hidden="true">
                 →
               </span>
@@ -338,7 +336,7 @@ function App() {
               coordination, or traditional management fees.
             </p>
             <button className="demo-button demo-button--hero" onClick={openWaitlist}>
-              <span>Book a demo</span>
+              <span>Join the waitlist</span>
               <span className="demo-arrow" aria-hidden="true">
                 →
               </span>
@@ -369,7 +367,7 @@ function App() {
           <h3>Company</h3>
           <a href="mailto:founders@atlia.com">Contact</a>
           <button type="button" onClick={openWaitlist}>
-            Book a demo
+            Join the waitlist
           </button>
         </div>
         <p className="footer-legal">©2026 Atlia. All rights reserved.</p>
