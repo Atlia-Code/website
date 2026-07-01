@@ -148,11 +148,20 @@ function App() {
 
           <div className="hero-copy">
             <h1 id="hero-title">The AI-native Property Management Company</h1>
-            <p>
-              Voice-powered AI agents that pull deed, property, and tax records
-              automatically, auto-fill contracts, and move transactions from
-              hours to minutes.
-            </p>
+            <div className="hero-support">
+              <p>
+                We manage your short term rentals for half of the industry
+                standard price. And, we do it very well.
+              </p>
+              <a
+                className="yc-link"
+                href="https://www.ycombinator.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Backed by Y Combinator
+              </a>
+            </div>
           </div>
         </section>
 
