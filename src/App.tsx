@@ -1,134 +1,287 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
-import BoidsBackground from "./components/BoidsBackground";
-import Cursor from "./components/Cursor";
 import LogoMarquee from "./components/LogoMarquee";
 import WaitlistModal from "./components/WaitlistModal";
 import atliaLogo from "./assets/atlia_logo_v1.png";
-import ycLogo from "/Y_Combinator_logo.svg.png";
+
+const benefits = [
+  {
+    title: "Higher net income",
+    copy:
+      "Atlia runs the full short-term rental operation for a flat 10% fee, keeping more of each booking in the owner's pocket.",
+  },
+  {
+    title: "Operations that stay moving",
+    copy:
+      "Guest messages, cleanings, pricing, listings, and issue resolution are coordinated through one operating layer.",
+  },
+  {
+    title: "Owners stay in control",
+    copy:
+      "You get transparent reporting and decision points without being pulled into the day-to-day work.",
+  },
+];
+
+const faqs = [
+  {
+    question: "What does Atlia do?",
+    answer:
+      "Atlia manages short-term rental properties end to end: booking channels, guest communication, pricing, vendor coordination, and operating workflows.",
+  },
+  {
+    question: "Who is it for?",
+    answer:
+      "Property owners who want professional STR management with a lower fee structure, plus long-term rental owners exploring whether short-term rental conversion makes sense.",
+  },
+  {
+    question: "How is Atlia priced?",
+    answer:
+      "Atlia charges a flat 10% management fee, compared with the 20-35% commonly charged by traditional short-term rental managers.",
+  },
+  {
+    question: "Where is Atlia starting?",
+    answer:
+      "We are starting with short-term rentals in markets where strong operations can materially improve owner net income and guest experience.",
+  },
+];
+
+function useSmoothPageScroll(enabled: boolean) {
+  useEffect(() => {
+    if (!enabled) return;
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (prefersReduced.matches) return;
+
+    let targetY = window.scrollY;
+    let currentY = window.scrollY;
+    let frame = 0;
+
+    const maxScroll = () =>
+      Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+
+    const stop = () => {
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+        frame = 0;
+      }
+    };
+
+    const animate = () => {
+      currentY += (targetY - currentY) * 0.15;
+
+      if (Math.abs(targetY - currentY) < 0.5) {
+        window.scrollTo(0, targetY);
+        stop();
+        return;
+      }
+
+      window.scrollTo(0, currentY);
+      frame = window.requestAnimationFrame(animate);
+    };
+
+    const start = () => {
+      if (!frame) {
+        currentY = window.scrollY;
+        frame = window.requestAnimationFrame(animate);
+      }
+    };
+
+    const onWheel = (event: WheelEvent) => {
+      if (event.ctrlKey || event.metaKey || event.shiftKey) return;
+      const path = event.composedPath();
+      const insideNativeScroll = path.some((node) => {
+        if (!(node instanceof HTMLElement)) return false;
+        return Boolean(
+          node.closest(
+            ".waitlist-modal, input, select, textarea, [data-native-scroll]",
+          ),
+        );
+      });
+
+      if (insideNativeScroll) return;
+
+      event.preventDefault();
+      targetY = Math.min(maxScroll(), Math.max(0, targetY + event.deltaY));
+      start();
+    };
+
+    const onScroll = () => {
+      if (!frame) {
+        targetY = window.scrollY;
+        currentY = window.scrollY;
+      }
+    };
+
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      stop();
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [enabled]);
+}
 
 function App() {
   const [waitlistOpen, setWaitlistOpen] = useState(false);
 
+  useSmoothPageScroll(!waitlistOpen);
+
+  const openWaitlist = () => setWaitlistOpen(true);
+
   return (
     <>
-      <Cursor />
-      <BoidsBackground />
-      <button className="waitlist-cta" onClick={() => setWaitlistOpen(true)}>
-        Join the waitlist
-      </button>
       <WaitlistModal
         open={waitlistOpen}
         onClose={() => setWaitlistOpen(false)}
       />
-      <div className="container">
-        {/* Hero Section */}
-        <section className="section">
-          <div className="content">
-            <img src={atliaLogo} alt="Atlia logo" className="hero-logo" />
-            <h2 className="brand-name">Atlia</h2>
-            <h1>The first AI-native property management company</h1>
-            <a
-              href="https://www.ycombinator.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="yc-badge"
-            >
-              <img src={ycLogo} alt="Y Combinator" className="yc-logo" />
-              <span>Backed by Y Combinator</span>
-            </a>
-            <section className="what-section">
-              <h3 className="who-heading">The Problem</h3>
-              <p className="what-desc">
-                Traditional short-term property managers charge{" "}
-                <strong>20&ndash;35%</strong> of total booking revenue &mdash;
-                costing landlords thousands of dollars every year. They use 5-8
-                different softwares tools that don't communicate well with each
-                other, resulting in worse guest experiences.
-              </p>
-            </section>
-            <section className="what-section">
-              <h3 className="who-heading">The Solution</h3>
-              <p className="what-desc">
-                A unified, end-to-end platform streamlining operations &mdash;
-                handling bookings, guests, pricing, and operations across
-                Airbnb, Vrbo, and beyond. We take over the full operation of
-                your short-term rental for a flat <strong>10% fee</strong>, less
-                than half what traditional managers charge.
-              </p>
-              {/* <div className="fee-compare">
-                <div className="fee-item fee-old">
-                  <span className="fee-num">20–35%</span>
-                  <span className="fee-label">Traditional managers</span>
-                </div>
-                <div className="fee-arrow">→</div>
-                <div className="fee-item fee-new">
-                  <span className="fee-num">10%</span>
-                  <span className="fee-label">Atlia</span>
-                </div>
-              </div> */}
-            </section>
-            <section className="what-section">
-              <h3 className="who-heading">Why Us</h3>
-              <p className="what-desc">
-                We&rsquo;ve spent the past year managing short-term rental
-                properties ourselves &mdash; coordinating guests, optimizing
-                pricing, and delivering the kind of five-star experiences that
-                keep bookings full. We built Atlia because we know what it
-                takes, and we know it can be done better.
-              </p>
-            </section>
-            <LogoMarquee />
-            <section className="who-section">
-              <h3 className="who-heading">Who we are for</h3>
-              <div className="who-list">
-                <div className="who-item">
-                  <p className="who-title">Property owners</p>
-                  <p className="who-desc">
-                    If you rent out a residential property, we'd love to save
-                    you money. We take over the full operation of your
-                    short-term rental for a 10% fee. Most long-term rentals can
-                    also be converted into more profitable short-term rentals
-                    under our model &mdash; so if you own one, let's talk.
-                  </p>
-                </div>
-              </div>
-            </section>
-            <section className="what-section">
-              <h3 className="who-heading">Where we're going</h3>
-              <p className="what-desc">
-                Our vision is to bring traditionally inanimate businesses to
-                life. A property that manages itself. A factory that optimizes
-                its own operations. We see a future where every business is
-                given a brain to operate on its own behalf &mdash; and we're
-                starting with a field we know and understand well.
-              </p>
-            </section>
-            <p className="contact-line">
-              Reach out at{" "}
-              <a href="mailto:founders@atlia.com">founders@atlia.com</a>
-              <span className="contact-sep">|</span>
-              <a
-                href="https://www.linkedin.com/company/atlia"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="linkedin-link"
-                aria-label="Atlia on LinkedIn"
-              >
-                <svg
-                  className="linkedin-logo"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-                <span>LinkedIn</span>
-              </a>
+
+      <header className="site-header">
+        <a className="brand-lockup" href="#top" aria-label="Atlia home">
+          <img src={atliaLogo} alt="" />
+          <span>Atlia</span>
+        </a>
+        <nav className="header-nav" aria-label="Primary navigation">
+          <a href="#product">Product</a>
+          <a href="#benefits">Benefits</a>
+          <a href="#faq">FAQ</a>
+          <a href="mailto:founders@atlia.com">Contact</a>
+        </nav>
+        <button className="nav-cta" onClick={openWaitlist}>
+          Join waitlist
+        </button>
+      </header>
+
+      <main id="top">
+        <section className="hero-section" aria-labelledby="hero-title">
+          <div className="hero-bg hero-bg-one" />
+          <div className="hero-bg hero-bg-two" />
+          <div className="hero-bg hero-bg-three" />
+          <div className="hero-copy">
+            <p className="eyebrow">AI-native property management</p>
+            <h1 id="hero-title">The property manager that runs itself.</h1>
+            <p>
+              Atlia manages short-term rentals end to end so owners earn more
+              net income without living inside booking portals, spreadsheets,
+              and guest threads.
+            </p>
+            <button className="primary-cta" onClick={openWaitlist}>
+              Join the waitlist
+            </button>
+          </div>
+        </section>
+
+        <section className="intro-band" id="product">
+          <div className="section-kicker">Product</div>
+          <div className="intro-grid">
+            <h2>An autonomous operating system for rental properties.</h2>
+            <p>
+              Traditional managers stitch together channel managers, cleaners,
+              pricing tools, guest messaging, and owner reporting. Atlia turns
+              that fragmented workflow into one coordinated operation.
+            </p>
+          </div>
+          <div className="product-scene" aria-label="Atlia operating model">
+            <div className="property-card image-card">
+              <span>Listing health</span>
+              <strong>Booked 24 nights</strong>
+              <small>Pricing, reviews, and guest flow monitored daily.</small>
+            </div>
+            <div className="property-card dark-card">
+              <span>Owner economics</span>
+              <strong>10% management</strong>
+              <small>Lower fees, clear reporting, fewer moving parts.</small>
+            </div>
+            <div className="property-card light-card">
+              <span>Operations queue</span>
+              <strong>Cleanings, guests, vendors</strong>
+              <small>Routine work coordinated before it becomes owner work.</small>
+            </div>
+          </div>
+        </section>
+
+        <section className="benefits-section" id="benefits">
+          <div className="benefits-copy">
+            <div className="section-kicker">Benefits</div>
+            <h2>Built for owners who want performance without operational drag.</h2>
+            <p>
+              Less administration, better guest experience, and a lower
+              management fee. Atlia handles the repetition while owners keep the
+              visibility that matters.
+            </p>
+            <button className="secondary-cta" onClick={openWaitlist}>
+              Get early access
+            </button>
+          </div>
+          <div className="benefit-list">
+            {benefits.map((benefit) => (
+              <article className="benefit-item" key={benefit.title}>
+                <h3>{benefit.title}</h3>
+                <p>{benefit.copy}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <LogoMarquee />
+
+        <section className="split-section">
+          <div className="split-image" />
+          <div className="split-copy">
+            <div className="section-kicker">Why now</div>
+            <h2>Short-term rental management should feel calm from the owner's side.</h2>
+            <p>
+              Owners should not pay premium fees for fragmented software and
+              manual coordination. Atlia combines operating experience with
+              modern AI systems so properties can be managed with more precision
+              and less overhead.
             </p>
           </div>
         </section>
-      </div>
+
+        <section className="faq-section" id="faq">
+          <div className="section-kicker">FAQ</div>
+          <h2>Frequently asked questions</h2>
+          <div className="faq-list">
+            {faqs.map((faq) => (
+              <details key={faq.question}>
+                <summary>{faq.question}</summary>
+                <p>{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <section className="closing-cta">
+          <h2>Let your property work with a better operating model.</h2>
+          <p>
+            Join the waitlist and tell us about the properties you want Atlia to
+            manage.
+          </p>
+          <button className="primary-cta" onClick={openWaitlist}>
+            Join the waitlist
+          </button>
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        <div>
+          <img src={atliaLogo} alt="" />
+          <span>Atlia</span>
+        </div>
+        <p>The AI-native property management company.</p>
+        <nav aria-label="Footer navigation">
+          <a href="mailto:founders@atlia.com">founders@atlia.com</a>
+          <a
+            href="https://www.linkedin.com/company/atlia"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+        </nav>
+      </footer>
     </>
   );
 }

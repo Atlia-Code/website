@@ -33,8 +33,7 @@ function LogoMarquee() {
       <div className="marquee-viewport">
         <div className="marquee-track">
           {track.map((logo, i) => {
-            // second copy of the list is a visual duplicate for the seamless
-            // loop — hide it from crawlers/screen readers to avoid double counts
+            // second copy of the list is a visual duplicate for the seamless.
             const isDuplicate = i >= logos.length;
             return (
               <div className="marquee-item" key={i} aria-hidden={isDuplicate}>
