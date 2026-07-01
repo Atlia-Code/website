@@ -429,7 +429,7 @@ function App() {
           <div className="section-grid section-grid--intro">
             <div>
               <p className="section-eyebrow">Operating model</p>
-              <h2>Property management with software in the loop</h2>
+              <h2>Atlia is your property manager</h2>
             </div>
             <p className="section-lede">
               Atlia is AI-driven, but always monitored and trained by real
