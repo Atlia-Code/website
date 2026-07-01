@@ -143,11 +143,10 @@ function App() {
         <section className="hero-section" aria-labelledby="hero-title">
           <img
             className="hero-media"
-            src="/atlia-hotel-ops-hero.png"
-            alt="A modern hotel operations workstation at dusk"
+            src="/atlia-main-hero.png"
+            alt="A mountain lake property viewed through a warm living room"
           />
           <div className="hero-vignette" aria-hidden="true" />
-          <div className="hero-grid" aria-hidden="true" />
 
           <div className="hero-copy">
             <div className="yc-pill" aria-label="Backed by Y Combinator">
