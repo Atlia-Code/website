@@ -139,7 +139,7 @@ export default function WaitlistModal({ open, onClose }: Props) {
         className="waitlist-modal"
         role="dialog"
         aria-modal="true"
-        aria-label="Join the waitlist"
+        aria-label="Sign up"
         onClick={(e) => e.stopPropagation()}
       >
         <button className="waitlist-close" onClick={onClose} aria-label="Close">
@@ -171,7 +171,7 @@ export default function WaitlistModal({ open, onClose }: Props) {
           </div>
         ) : (
           <form className="waitlist-form" onSubmit={handleSubmit} noValidate>
-            <h2>Join the waitlist</h2>
+            <h2>Sign up</h2>
             <p className="waitlist-sub">
               Tell us a bit about you and your properties.
             </p>
@@ -310,7 +310,7 @@ export default function WaitlistModal({ open, onClose }: Props) {
               type="submit"
               disabled={status === "submitting"}
             >
-              {status === "submitting" ? "Joining…" : "Join the waitlist"}
+              {status === "submitting" ? "Signing up…" : "Sign up"}
             </button>
           </form>
         )}

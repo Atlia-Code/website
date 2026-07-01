@@ -1637,23 +1637,57 @@ main > section {
   }
 
   .waitlist-overlay {
-    padding: 12px;
+    padding: 0;
+    align-items: flex-end;
   }
 
   .waitlist-modal {
-    padding: 28px 20px 24px;
-    border-radius: 8px;
+    width: 100%;
+    max-height: 94vh;
+    padding: 26px 20px calc(24px + env(safe-area-inset-bottom));
+    border-width: 1px 0 0;
+    border-radius: 16px 16px 0 0;
+    animation: modal-sheet-rise 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .waitlist-close {
     top: 14px;
     right: 14px;
   }
-}
 
-@media (max-width: 360px) {
+  .waitlist-modal h2 {
+    margin-right: 46px;
+  }
+
+  .waitlist-sub {
+    margin-bottom: 1.2rem;
+  }
+
+  /* Stack paired fields so nothing gets cramped on phones. */
   .waitlist-row {
     flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  /* 16px inputs prevent iOS from auto-zooming on focus. */
+  .waitlist-form input,
+  .waitlist-form select {
+    font-size: 16px;
+  }
+
+  .waitlist-submit {
+    padding: 0.95rem 1.4rem;
+  }
+}
+
+@keyframes modal-sheet-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
