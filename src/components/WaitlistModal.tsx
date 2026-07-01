@@ -242,7 +242,7 @@ export default function WaitlistModal({ open, onClose }: Props) {
                 <input
                   value={form.referral}
                   onChange={update("referral")}
-                  placeholder="Who sent you?"
+                  placeholder="Referral name or code."
                 />
               </label>
             </div>
