@@ -149,24 +149,12 @@ function App() {
           <div className="hero-vignette" aria-hidden="true" />
 
           <div className="hero-copy">
-            <div className="yc-pill" aria-label="Backed by Y Combinator">
-              <span className="yc-mark">Y</span>
-              <span>Combinator</span>
-            </div>
-            <h1 id="hero-title">Intelligent property operations</h1>
+            <h1 id="hero-title">AI agents for real estate.</h1>
             <p>
-              AI-native management for short-term rentals. Atlia helps owners
-              run bookings, guests, pricing, and operations with less overhead.
+              Voice-powered AI agents that pull deed, property, and tax records
+              automatically, auto-fill contracts, and move transactions from
+              hours to minutes.
             </p>
-            <button
-              className="demo-button demo-button--hero"
-              onClick={openWaitlist}
-            >
-              <span>Book a demo</span>
-              <span className="demo-arrow" aria-hidden="true">
-                →
-              </span>
-            </button>
           </div>
         </section>
 
