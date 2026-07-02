@@ -487,9 +487,7 @@ main > section {
   box-shadow:
     0 20px 50px rgba(17, 24, 19, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.55);
-  transition:
-    box-shadow 220ms ease,
-    transform 220ms ease;
+  transition: box-shadow 220ms ease;
 }
 
 .graph-core::before,
@@ -543,7 +541,6 @@ main > section {
 .graph-core:hover,
 .graph-core:focus-visible,
 .graph-core--active {
-  transform: translate(-50%, -50%) scale(1.03);
   box-shadow:
     0 0 0 6px rgba(111, 139, 118, 0.1),
     0 24px 56px rgba(17, 24, 19, 0.16),
@@ -575,8 +572,7 @@ main > section {
     color 200ms ease,
     border-color 200ms ease,
     background-color 200ms ease,
-    box-shadow 200ms ease,
-    transform 200ms ease;
+    box-shadow 200ms ease;
 }
 
 .graph-chip--sage {
@@ -619,7 +615,6 @@ main > section {
   border-color: color-mix(in srgb, var(--chip-tone) 42%, transparent);
   background: rgba(255, 255, 255, 0.96);
   box-shadow: 0 14px 32px rgba(17, 24, 19, 0.12);
-  transform: translate(var(--chip-offset-x), -50%) translateY(-2px);
 }
 
 .graph-chip:focus-visible,
@@ -1577,7 +1572,7 @@ main > section {
 
   .knowledge-graph {
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(320px, 1fr) auto;
+    grid-template-rows: 320px minmax(0, auto);
     gap: 16px;
     padding: 22px;
   }
@@ -1626,9 +1621,13 @@ main > section {
 
   .knowledge-graph {
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(0, 1fr) auto;
+    grid-template-rows: 150px minmax(150px, 1fr);
     gap: 12px;
     padding: 14px;
+  }
+
+  .graph-canvas {
+    align-self: stretch;
   }
 
   .graph-core {
@@ -1671,6 +1670,7 @@ main > section {
   }
 
   .graph-info {
+    min-height: 150px;
     padding: 12px 14px;
   }
 
