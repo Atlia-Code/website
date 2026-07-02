@@ -1164,11 +1164,14 @@ main > section {
   align-items: center;
   justify-content: center;
   padding: 18px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background:
     radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.08), transparent 34%),
     rgba(8, 11, 10, 0.68);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+  -webkit-overflow-scrolling: touch;
   animation: overlay-fade 240ms ease both;
 }
 
@@ -1177,6 +1180,7 @@ main > section {
   width: min(540px, 100%);
   max-height: min(92vh, 820px);
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 34px 34px 30px;
   color: #101713;
   background: rgba(252, 252, 250, 0.98);
@@ -1726,22 +1730,32 @@ main > section {
   }
 
   .waitlist-overlay {
-    padding: 0;
-    align-items: flex-end;
+    display: block;
+    height: 100svh;
+    height: 100dvh;
+    padding: max(14px, env(safe-area-inset-top)) 0 0;
+    overflow-y: auto;
   }
 
   .waitlist-modal {
     width: 100%;
-    max-height: 94vh;
-    padding: 26px 20px calc(24px + env(safe-area-inset-bottom));
-    border-width: 1px 0 0;
-    border-radius: 16px 16px 0 0;
+    min-height: calc(100dvh - max(14px, env(safe-area-inset-top)));
+    max-height: none;
+    overflow: visible;
+    padding: 16px 20px calc(24px + env(safe-area-inset-bottom));
+    border-width: 0;
+    border-radius: 0;
     animation: modal-sheet-rise 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .waitlist-close {
-    top: 14px;
-    right: 14px;
+    position: sticky;
+    top: max(10px, env(safe-area-inset-top));
+    right: auto;
+    z-index: 2;
+    margin: 0 0 -34px auto;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(17, 24, 19, 0.12);
   }
 
   .waitlist-modal h2 {

@@ -405,12 +405,9 @@ function App() {
                   <h2>Atlia is your property manager</h2>
                 </div>
                 <p className="section-lede">
-                  Atlia is AI-driven, but always monitored and trained by real
-                  property managers. It has complete understanding of your
-                  property, enabling your property to manage itself. Atlia
-                  handles everything - guests, cleaners, maintenance, pricing,
-                  owner reporting, and day-to-day decisions with experienced
-                  operators supervising the system.
+                  Atlia handles everything - guests, cleaners, maintenance,
+                  pricing, owner reporting, and day-to-day decisions with
+                  experienced operators supervising the system.
                 </p>
               </div>
 
