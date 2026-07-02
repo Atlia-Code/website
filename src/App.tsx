@@ -117,7 +117,7 @@ const satelliteNodes = graphNodes.filter((node) => node.id !== "property");
 
 const revenueMin = 35000;
 const revenueMax = 250000;
-const defaultRevenue = 60000;
+const defaultRevenue = 82000;
 const revenueCurve = 2;
 const atliaRate = 10;
 const defaultTraditionalRate = 30;
@@ -551,8 +551,8 @@ function App() {
                     experienced operators supervising the system.
                   </p>
                   <p className="section-lede">
-                    Atlia is designed to reduce the repetitive coordination work
-                    that usually keeps owners tied to every booking.
+                    All you do is watch your investment provide you better
+                    returns.
                   </p>
                 </div>
               </div>
@@ -565,9 +565,7 @@ function App() {
                     <h2>Keep more of every booking</h2>
                   </div>
                   <p className="roi-description">
-                    A property earning $60,000 a year saves $12,000 in annual
-                    management fees when moving from a 30% manager to Atlia's
-                    10% fee, before any revenue lift or operating improvements.
+                    See how much you can save.
                   </p>
                 </div>
 
