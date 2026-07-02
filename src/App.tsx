@@ -187,12 +187,12 @@ const faqs = [
   {
     question: "What kinds of properties are a fit?",
     answer:
-      "We are focused on residential short-term rentals, especially owners who want professional operations without traditional 20-35% management fees.",
+      "We are focused on residential short-term rentals, especially owners who want professional operations without traditional 20-35% management fee scenarios.",
   },
   {
     question: "How is Atlia priced?",
     answer:
-      "Atlia manages short-term rentals for a flat 10% fee, designed to be materially lower than traditional managers while keeping the owner experience professional.",
+      "Atlia manages short-term rentals for a flat 10% fee, designed to be materially lower than traditional percentage-based management models while keeping the owner experience professional.",
   },
 ];
 
@@ -311,6 +311,15 @@ function App() {
       if (target === "#login") {
         setLoginPageOpen(true);
         requestAnimationFrame(() => window.scrollTo({ top: 0 }));
+        return;
+      }
+      if (target === "#signup") {
+        setLoginPageOpen(false);
+        waitlistPromptShownRef.current = true;
+        requestAnimationFrame(() => {
+          document.querySelector("#top")?.scrollIntoView({ block: "start" });
+          setWaitlistOpen(true);
+        });
         return;
       }
       if (!target) return;
@@ -514,8 +523,7 @@ function App() {
                 <h1 id="hero-title">Premium Short-Term Property Management</h1>
                 <div className="hero-support">
                   <p>
-                    We manage your short term rentals for 10% - the lowest price
-                    in the industry.
+                    We manage your short term rentals for a flat 10% fee.
                     <br />
                     And, we do it very well.
                   </p>
@@ -543,8 +551,8 @@ function App() {
                     experienced operators supervising the system.
                   </p>
                   <p className="section-lede">
-                    All you do is watch your investment provide you better
-                    returns.
+                    Atlia is designed to reduce the repetitive coordination work
+                    that usually keeps owners tied to every booking.
                   </p>
                 </div>
               </div>
@@ -557,10 +565,19 @@ function App() {
                     <h2>Keep more of every booking</h2>
                   </div>
                   <p className="roi-description">
-                    Our typical client saves $12,000 a year in management fees
-                    when they switch to using Atlia. All while being able to
-                    provide a better, more personalized guest experience.
+                    A property earning $60,000 a year saves $12,000 in annual
+                    management fees when moving from a 30% manager to Atlia's
+                    10% fee, before any revenue lift or operating improvements.
                   </p>
+                  <a
+                    className="demo-button demo-button--light"
+                    href="/airbnb-management-fee-calculator/"
+                  >
+                    <span>Open fee calculator</span>
+                    <span className="demo-arrow" aria-hidden="true">
+                      →
+                    </span>
+                  </a>
                 </div>
 
                 <div className="roi-calculator">
@@ -674,11 +691,10 @@ function App() {
                 </div>
                 <div className="how-copy">
                   <p>
-                    We enable a first-in-class experience by giving your
-                    property the ability to remember, learn, and improve over
-                    time. This turns your property into its own manager, with
-                    constant oversight from our team of talented engineers and
-                    experienced operators.
+                    We give your property the ability to remember, learn, and
+                    improve over time. This turns your property into its own
+                    manager, with constant oversight from our team of talented
+                    engineers and experienced operators.
                   </p>
                 </div>
               </div>

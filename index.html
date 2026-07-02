@@ -24,21 +24,21 @@
     <link rel="icon" type="image/png" href="/atlia_logo_v1.png" />
     <link rel="apple-touch-icon" href="/atlia_logo_v1.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Atlia | The First AI-native Property Management Company</title>
+    <title>Short-Term Rental Property Management for 10% | Atlia</title>
     <meta
       name="description"
-      content="Atlia is the first AI-native property management company for short-term rentals. We give each property a brain so it runs itself across Airbnb, Vrbo, and beyond — for a 10% fee, less than half what traditional managers charge. Backed by Y Combinator."
+      content="Atlia manages Airbnb and Vrbo short-term rentals for a 10% fee with AI plus experienced operators handling guests, pricing, turnovers, and reporting."
     />
     <link rel="canonical" href="https://www.atlia.com/" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.atlia.com/" />
     <meta
       property="og:title"
-      content="Atlia | The First AI-native Property Management Company"
+      content="Short-Term Rental Property Management for 10% | Atlia"
     />
     <meta
       property="og:description"
-      content="Atlia is the first AI-native property management company for short-term rentals. We give each property a brain so it runs itself across Airbnb, Vrbo, and beyond — for a 10% fee, less than half what traditional managers charge. Backed by Y Combinator."
+      content="Atlia manages Airbnb and Vrbo short-term rentals for a 10% fee with AI plus experienced operators handling guests, pricing, turnovers, and reporting."
     />
     <meta
       property="og:image"
@@ -47,11 +47,11 @@
     <meta name="twitter:card" content="summary" />
     <meta
       name="twitter:title"
-      content="Atlia | The First AI-native Property Management Company"
+      content="Short-Term Rental Property Management for 10% | Atlia"
     />
     <meta
       name="twitter:description"
-      content="Atlia is the first AI-native property management company for short-term rentals. We give each property a brain so it runs itself for a 10% fee, less than half what traditional managers charge. Backed by Y Combinator."
+      content="Atlia manages Airbnb and Vrbo short-term rentals for a 10% fee with AI plus experienced operators handling guests, pricing, turnovers, and reporting."
     />
     <meta
       name="twitter:image"
@@ -63,20 +63,109 @@
         "@graph": [
           {
             "@type": "Organization",
+            "@id": "https://www.atlia.com/#organization",
             "name": "Atlia",
             "url": "https://www.atlia.com",
-            "description": "Atlia is the first AI-native property management company for short-term rentals. Atlia gives each property a brain so it operates on its own behalf — handling bookings, guests, pricing, and operations across Airbnb, Vrbo, and beyond — for a 10% fee, less than half the 20–30% traditional managers charge.",
-            "keywords": "AI property management, short-term rental management, Airbnb management, Vrbo management, AI-native property management, vacation rental management, 10% property management fee",
-            "offers": {
-              "@type": "Offer",
-              "category": "AI-native Property Management for Short-Term Rentals"
-            },
+            "logo": "https://www.atlia.com/atlia_logo_v1.png",
+            "description": "Atlia is an AI-native property management company for short-term rentals. Atlia manages Airbnb and Vrbo properties end to end for a 10% management fee.",
+            "keywords": "AI property management, short-term rental management, Airbnb management, Vrbo management, vacation rental management, 10% property management fee",
             "funder": {
               "@type": "Organization",
               "name": "Y Combinator"
             },
             "foundingDate": "2026",
             "email": "founders@atlia.com"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.atlia.com/#website",
+            "name": "Atlia",
+            "url": "https://www.atlia.com/",
+            "publisher": {
+              "@id": "https://www.atlia.com/#organization"
+            }
+          },
+          {
+            "@type": "Service",
+            "@id": "https://www.atlia.com/#service",
+            "name": "Short-term rental property management",
+            "serviceType": "Short-term rental property management",
+            "provider": {
+              "@id": "https://www.atlia.com/#organization"
+            },
+            "areaServed": {
+              "@type": "Country",
+              "name": "United States"
+            },
+            "audience": {
+              "@type": "Audience",
+              "audienceType": "Short-term rental owners"
+            },
+            "description": "Atlia manages short-term rentals across Airbnb, Vrbo, and similar platforms with guest communication, pricing coordination, turnovers, maintenance coordination, and owner reporting.",
+            "offers": {
+              "@type": "Offer",
+              "category": "Short-term rental property management",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "10",
+                "priceCurrency": "USD",
+                "unitText": "PERCENT_OF_BOOKING_REVENUE"
+              }
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.atlia.com/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is Atlia?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Atlia is an AI-native property management company for short-term rental owners. We combine software and operations to run bookings, guests, pricing, and day-to-day coordination."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How long does onboarding take?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Most properties can be reviewed and prepared within a few days once we have listing access, property details, calendar context, and operating preferences."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does the AI act without approval?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "High-impact actions can be reviewed by the owner or operator. The goal is to remove repetitive work while keeping clear control over important decisions."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does Atlia replace my existing tools?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Atlia can work around the tools owners already use, then consolidate workflows where it improves speed, quality, and visibility."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What kinds of properties are a fit?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We are focused on residential short-term rentals, especially owners who want professional operations without traditional 20-35% management fee scenarios."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How is Atlia priced?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Atlia manages short-term rentals for a flat 10% fee, designed to be materially lower than traditional percentage-based management models while keeping the owner experience professional."
+                }
+              }
+            ]
           }
         ]
       }

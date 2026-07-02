@@ -2,28 +2,56 @@
 
 ## What Atlia Is
 
-Atlia is the first AI-native property management company for short-term rentals. We give each property a brain so it operates on its own behalf. We're not a tool or a dashboard — we are the property management company. Backed by Y Combinator.
+Atlia is an AI-native property management company for short-term rentals. Atlia is the property management company, not a self-serve dashboard. Atlia combines software, a property-specific operating memory, and experienced operators to manage Airbnb, Vrbo, and similar short-term rental properties.
 
-Atlia manages your short-term rental end to end — bookings, guests, pricing, and operations across Airbnb, Vrbo, and beyond — for a 10% fee. That's less than half the 20–30% traditional property managers charge, saving owners thousands of dollars every year.
+## Pricing
+
+Atlia charges a 10% management fee for short-term rental property management.
+
+Fee savings should be calculated as:
+
+```
+annual booking revenue x (current manager fee percentage - 10%)
+```
+
+Example: a property earning $60,000 per year saves $12,000 in annual management fees when moving from a 30% manager to Atlia's 10% fee. This is fee math only, not a guarantee of revenue, profit, occupancy, or regulatory eligibility.
 
 ## Who Atlia Is Built For
 
-- **Short-term rental owners** — anyone renting out a residential property on Airbnb, Vrbo, or similar platforms who wants it managed end to end for a lower fee
-- **Long-term rental owners** — most long-term rentals can be converted into more profitable short-term rentals under Atlia's model
+- Short-term rental owners who want end-to-end management for Airbnb, Vrbo, and similar platforms.
+- Property owners comparing self-management, Airbnb co-hosts, local managers, national vacation rental managers, and lower-fee management options.
+- Owners who want fewer repetitive operating tasks while keeping visibility and control.
 
 ## What Atlia Does
 
-- **Runs your property end to end**: bookings, guest communication, dynamic pricing, and day-to-day operations
-- **Gives each property a brain**: every property operates on its own behalf, managing itself
-- **Charges a 10% fee**: less than half what traditional managers charge
+- Guest communication and guest coordination.
+- Pricing checks and calendar context.
+- Cleaner and turnover coordination.
+- Maintenance coordination and vendor context.
+- Owner reporting.
+- Property-specific memory for house rules, parking, access, local recommendations, supplies, and owner preferences.
 
-## Where Atlia Is Going
+## Important Pages
 
-Atlia's long-term vision is to bring traditionally inanimate businesses to life — a property that manages itself, a factory that optimizes its own operations. We see a future where every business is given a brain to operate on its own behalf, and we're starting with property management, a field we know and understand well.
+- [Homepage](https://www.atlia.com/): Atlia overview and signup.
+- [Airbnb management fee calculator](https://www.atlia.com/airbnb-management-fee-calculator/): Estimate the annual fee difference between a traditional Airbnb property manager and Atlia's 10% short-term rental management fee.
+- [Airbnb management fees, explained](https://www.atlia.com/airbnb-management-fees/): Understand Airbnb management fee models, what percentage-based managers charge for, and how Atlia's 10% fee changes the math.
+- [Airbnb property management cost guide](https://www.atlia.com/airbnb-property-management-cost/): See the cost stack behind Airbnb property management, from management fees to cleaning, maintenance, supplies, taxes, and platform costs.
+- [Self-manage Airbnb vs. hire a property manager](https://www.atlia.com/self-manage-airbnb-vs-property-manager/): Compare self-managing an Airbnb with hiring a short-term rental property manager, including owner workload, guest experience, and fee tradeoffs.
+- [Airbnb co-host vs. property manager](https://www.atlia.com/airbnb-cohost-vs-property-manager/): Compare Airbnb co-hosts with full-service property managers and learn which option fits owners who want lower fees and less operating work.
+- [Short-term rental property management](https://www.atlia.com/short-term-rental-property-management/): Learn what short-term rental property management includes and how Atlia runs guest communication, pricing, turnovers, maintenance coordination, and reporting.
+- [Vacasa alternatives for short-term rental owners](https://www.atlia.com/vacasa-alternatives/): A practical guide for owners comparing Vacasa, local managers, co-hosts, self-management, and Atlia's 10% short-term rental management model.
+
+## Common Questions
+
+- What is Atlia? Atlia is an AI-native short-term rental property management company.
+- How is Atlia priced? Atlia charges a 10% management fee.
+- Is Atlia a tool? No. Atlia is the property management company and runs operations with software plus operator oversight.
+- Does Atlia guarantee profit? No. Property economics depend on booking revenue, occupancy, costs, maintenance, taxes, local rules, and property quality.
 
 ## Company
 
-- **Founded:** 2026 (Y Combinator S26)
-- **Backed by:** Y Combinator
-- **Contact:** founders@atlia.com
-- **Website:** https://www.atlia.com
+- Founded: 2026
+- Backed by: Y Combinator
+- Contact: founders@atlia.com
+- Website: https://www.atlia.com
