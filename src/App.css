@@ -236,11 +236,29 @@ main > section {
 .hero-media {
   position: absolute;
   inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  pointer-events: none;
   transform: scale(1.01);
   filter: saturate(0.92) contrast(1.03) brightness(0.72);
+  transition: opacity 220ms ease;
+}
+
+.hero-media--blocked {
+  opacity: 0;
+}
+
+.hero-media::-webkit-media-controls,
+.hero-media::-webkit-media-controls-panel,
+.hero-media::-webkit-media-controls-play-button,
+.hero-media::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+  appearance: none;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .hero-vignette {

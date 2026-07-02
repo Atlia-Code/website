@@ -231,6 +231,7 @@ function App() {
   const [activeGraphNodeId, setActiveGraphNodeId] = useState("property");
   const [loginPageOpen, setLoginPageOpen] = useState(false);
   const waitlistPromptShownRef = useRef(false);
+  const heroVideoRef = useRef<HTMLVideoElement | null>(null);
 
   const openWaitlist = () => {
     waitlistPromptShownRef.current = true;
@@ -278,6 +279,87 @@ function App() {
     window.addEventListener("hashchange", scrollToHash);
     return () => window.removeEventListener("hashchange", scrollToHash);
   }, []);
+
+  useEffect(() => {
+    if (loginPageOpen) return;
+
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    let retryArmed = false;
+    let playbackCheck = 0;
+
+    const showPoster = () => video.classList.add("hero-media--blocked");
+    const showVideo = () => video.classList.remove("hero-media--blocked");
+    const clearPlaybackCheck = () => {
+      window.clearTimeout(playbackCheck);
+      playbackCheck = 0;
+    };
+    const armRetry = () => {
+      if (retryArmed) return;
+      retryArmed = true;
+      window.addEventListener("pointerdown", playHeroVideo, {
+        once: true,
+        passive: true,
+      });
+      window.addEventListener("touchstart", playHeroVideo, {
+        once: true,
+        passive: true,
+      });
+    };
+    const verifyPlayback = (startTime: number) => {
+      clearPlaybackCheck();
+      playbackCheck = window.setTimeout(() => {
+        if (!video.paused && video.currentTime > startTime + 0.05) {
+          showVideo();
+          return;
+        }
+
+        showPoster();
+        armRetry();
+      }, 900);
+    };
+    const playHeroVideo = () => {
+      window.removeEventListener("pointerdown", playHeroVideo);
+      window.removeEventListener("touchstart", playHeroVideo);
+      video.muted = true;
+      video.defaultMuted = true;
+      video.controls = false;
+      video.playsInline = true;
+      video.setAttribute("playsinline", "");
+      video.setAttribute("webkit-playsinline", "");
+
+      const startTime = video.currentTime;
+      let playPromise: Promise<void> | undefined;
+      try {
+        playPromise = video.play();
+      } catch {
+        showPoster();
+        armRetry();
+        return;
+      }
+
+      verifyPlayback(startTime);
+      if (!playPromise) {
+        return;
+      }
+
+      playPromise.catch(() => {
+        showPoster();
+        armRetry();
+      });
+    };
+
+    video.addEventListener("playing", showVideo);
+    playHeroVideo();
+
+    return () => {
+      clearPlaybackCheck();
+      video.removeEventListener("playing", showVideo);
+      window.removeEventListener("pointerdown", playHeroVideo);
+      window.removeEventListener("touchstart", playHeroVideo);
+    };
+  }, [loginPageOpen]);
 
   useEffect(() => {
     if (loginPageOpen) return;
@@ -367,12 +449,15 @@ function App() {
           <>
             <section className="hero-section" aria-labelledby="hero-title">
               <video
-                className="hero-media"
+                ref={heroVideoRef}
+                className="hero-media hero-media--blocked"
                 poster="/atlia-main-hero.webp"
                 autoPlay
                 loop
                 muted
                 playsInline
+                disablePictureInPicture
+                disableRemotePlayback
                 preload="metadata"
                 aria-hidden="true"
               >
