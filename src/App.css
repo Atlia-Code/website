@@ -635,21 +635,7 @@ main > section {
 
 .how-section {
   border-bottom: 0;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(251, 251, 250, 0) 0%,
-      rgba(251, 251, 250, 0) 42%,
-      rgba(251, 251, 250, 0) 76%,
-      #fbfbfa 100%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(251, 251, 250, 0) 0%,
-      rgba(251, 251, 250, 0) 48%,
-      rgba(251, 251, 250, 0) 100%
-    ),
-    url("./assets/property-brain-background.jpg") center top / cover no-repeat;
+  background: #fbfbfa;
 }
 
 .section-grid--how {

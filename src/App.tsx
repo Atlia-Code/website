@@ -114,6 +114,7 @@ const graphNodeById = graphNodes.reduce<Record<string, GraphNode>>(
 );
 
 const satelliteNodes = graphNodes.filter((node) => node.id !== "property");
+const graphAutoRotationIds = satelliteNodes.map((node) => node.id);
 
 const revenueMin = 35000;
 const revenueMax = 250000;
@@ -259,6 +260,7 @@ function App() {
   const [navScrolled, setNavScrolled] = useState(false);
   const [activeFaq, setActiveFaq] = useState(-1);
   const [activeGraphNodeId, setActiveGraphNodeId] = useState("property");
+  const [graphUserInteracted, setGraphUserInteracted] = useState(false);
   const [loginPageOpen, setLoginPageOpen] = useState(false);
   const [revenueSliderValue, setRevenueSliderValue] = useState(
     revenueToSlider(defaultRevenue),
@@ -288,6 +290,12 @@ function App() {
       window.scrollTo({ top: 0, behavior: "smooth" }),
     );
   };
+  const selectGraphNode = (nodeId: string, userInitiated = false) => {
+    if (userInitiated) {
+      setGraphUserInteracted(true);
+    }
+    setActiveGraphNodeId(nodeId);
+  };
   const activeGraphNode =
     graphNodeById[activeGraphNodeId] ?? graphNodeById.property;
   const annualRevenue = sliderToRevenue(revenueSliderValue);
@@ -304,6 +312,24 @@ function App() {
     window.addEventListener("scroll", updateNav, { passive: true });
     return () => window.removeEventListener("scroll", updateNav);
   }, []);
+
+  useEffect(() => {
+    if (graphUserInteracted || loginPageOpen) return;
+
+    const intervalId = window.setInterval(() => {
+      setActiveGraphNodeId((currentNodeId) => {
+        const currentIndex = graphAutoRotationIds.indexOf(currentNodeId);
+        const nextIndex =
+          currentIndex === -1
+            ? 0
+            : (currentIndex + 1) % graphAutoRotationIds.length;
+
+        return graphAutoRotationIds[nextIndex];
+      });
+    }, 3000);
+
+    return () => window.clearInterval(intervalId);
+  }, [graphUserInteracted, loginPageOpen]);
 
   useEffect(() => {
     const scrollToHash = () => {
@@ -733,9 +759,9 @@ function App() {
                       aria-label="Property Brain"
                       aria-describedby="graph-info"
                       aria-pressed={activeGraphNodeId === "property"}
-                      onClick={() => setActiveGraphNodeId("property")}
-                      onFocus={() => setActiveGraphNodeId("property")}
-                      onMouseEnter={() => setActiveGraphNodeId("property")}
+                      onClick={() => selectGraphNode("property", true)}
+                      onFocus={() => selectGraphNode("property", true)}
+                      onMouseEnter={() => selectGraphNode("property", true)}
                     >
                       <span className="graph-core-label" aria-hidden="true">
                         Property
@@ -758,9 +784,9 @@ function App() {
                           aria-label={node.label}
                           aria-describedby="graph-info"
                           aria-pressed={isActive}
-                          onClick={() => setActiveGraphNodeId(node.id)}
-                          onFocus={() => setActiveGraphNodeId(node.id)}
-                          onMouseEnter={() => setActiveGraphNodeId(node.id)}
+                          onClick={() => selectGraphNode(node.id, true)}
+                          onFocus={() => selectGraphNode(node.id, true)}
+                          onMouseEnter={() => selectGraphNode(node.id, true)}
                         >
                           <span className="graph-chip-dot" aria-hidden="true" />
                           <span className="graph-chip-label">{node.label}</span>
@@ -772,7 +798,7 @@ function App() {
                   <div
                     className="graph-info"
                     id="graph-info"
-                    aria-live="polite"
+                    aria-live={graphUserInteracted ? "polite" : "off"}
                   >
                     <p>{activeGraphNode.category}</p>
                     <h3>{activeGraphNode.label}</h3>
