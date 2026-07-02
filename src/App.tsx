@@ -211,7 +211,6 @@ function LoginPage({ onBack }: LoginPageProps) {
     <section className="login-page" id="login" aria-labelledby="login-title">
       <div className="login-shell">
         <div className="login-copy">
-          <p className="section-eyebrow">Login</p>
           <h1 id="login-title">Atlia owner portal</h1>
           {/* <p>
             Account access is not available yet. Sign up to be notified when the
@@ -430,7 +429,6 @@ function App() {
             <section className="page-section product-section" id="product">
               <div className="section-grid section-grid--intro">
                 <div>
-                  <p className="section-eyebrow">Operating model</p>
                   <h2>Atlia is your property manager</h2>
                 </div>
                 <p className="section-lede">
@@ -519,7 +517,6 @@ function App() {
             <section className="page-section benefits-section" id="owners">
               <div className="section-grid section-grid--benefits">
                 <div>
-                  <p className="section-eyebrow">Owner outcomes</p>
                   <h2>Who Atlia is for</h2>
                 </div>
                 <p className="section-lede">
@@ -570,7 +567,6 @@ function App() {
             <section className="page-section faq-section" id="faq">
               <div className="section-grid section-grid--faq">
                 <div>
-                  <p className="section-eyebrow">Questions</p>
                   <h2>Common things owners ask us</h2>
                   <p className="faq-intro"></p>
                 </div>
