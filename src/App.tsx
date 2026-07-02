@@ -30,10 +30,10 @@ type GraphNode = {
 const graphNodes: GraphNode[] = [
   {
     id: "property",
-    label: "Property",
+    label: "Property Brain",
     category: "Core memory",
     detail:
-      "Location, listing context, house rules, access notes, owner preferences, and operational history stay attached to the home.",
+      "Complete understanding of your property and continuously improving guest operations.",
     x: 52,
     y: 52,
     size: 104,
@@ -44,7 +44,7 @@ const graphNodes: GraphNode[] = [
     label: "Guest Experience",
     category: "Guest operations",
     detail:
-      "Atlia keeps the right tone, check-in instructions, issue handling, and review follow-up ready for every guest.",
+      "Atlia manages all guest coordination (issue handling, check-in, and property questions), matching your tone and ensuring a 5-star experience for every guest.",
     x: 30,
     y: 24,
     size: 74,
@@ -99,7 +99,7 @@ const graphNodes: GraphNode[] = [
     label: "Owner Reporting",
     category: "Owner visibility",
     detail:
-      "Revenue, fees, upcoming work, maintenance status, and property health are summarized without extra dashboards.",
+      "Revenue, fees, maintenance status, and property health are summarized without extra dashboards.",
     x: 34,
     y: 80,
     size: 68,
@@ -368,7 +368,7 @@ function App() {
             onClick={() => setLoginPageOpen(false)}
           >
             <img className="brand-mark" src={atliaLogo} alt="" />
-            <span className="brand-word">atlia</span>
+            <span className="brand-word">Atlia</span>
           </a>
 
           <div className="nav-actions">
@@ -409,9 +409,7 @@ function App() {
               <div className="hero-vignette" aria-hidden="true" />
 
               <div className="hero-copy">
-                <h1 id="hero-title">
-                  The AI-Native Property Management Company
-                </h1>
+                <h1 id="hero-title">Premium Short-Term Property Management</h1>
                 <div className="hero-support">
                   <p>
                     We manage your short term rentals for 10% - the lowest price
@@ -522,11 +520,12 @@ function App() {
               <div className="section-grid section-grid--benefits">
                 <div>
                   <p className="section-eyebrow">Owner outcomes</p>
-                  <h2>What owners get back</h2>
+                  <h2>Who Atlia is for</h2>
                 </div>
                 <p className="section-lede">
-                  No administration, lower management fees, and better guest
-                  operations without asking owners to become property managers.
+                  Atlia is for property owners who want lower management fees
+                  and better guest operations without needing to become property
+                  managers themselves.
                 </p>
                 <button
                   className="demo-button demo-button--light"
@@ -552,7 +551,7 @@ function App() {
                         <span />
                       </div>
                       <div className="benefit-window benefit-window--right">
-                        <strong>atlia</strong>
+                        <strong>Atlia</strong>
                         <span />
                         <span />
                         <span />
@@ -573,10 +572,7 @@ function App() {
                 <div>
                   <p className="section-eyebrow">Questions</p>
                   <h2>Common things owners ask us</h2>
-                  <p className="faq-intro">
-                    Everything you need to know about Atlia's AI-native property
-                    management platform.
-                  </p>
+                  <p className="faq-intro"></p>
                 </div>
                 <div className="faq-list">
                   {faqs.map((faq, index) => {
@@ -650,7 +646,7 @@ function App() {
               onClick={() => setLoginPageOpen(false)}
             >
               <img src={atliaLogo} alt="" />
-              <span>atlia</span>
+              <span>Atlia</span>
             </a>
             <p>
               The AI-native property management company for short-term rental
