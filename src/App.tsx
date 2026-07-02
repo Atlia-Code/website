@@ -231,8 +231,6 @@ function App() {
   const [activeGraphNodeId, setActiveGraphNodeId] = useState("property");
   const [loginPageOpen, setLoginPageOpen] = useState(false);
   const waitlistPromptShownRef = useRef(false);
-  const heroVideoRef = useRef<HTMLVideoElement | null>(null);
-  const [heroVideoBlocked, setHeroVideoBlocked] = useState(false);
 
   const openWaitlist = () => {
     waitlistPromptShownRef.current = true;
@@ -280,35 +278,6 @@ function App() {
     window.addEventListener("hashchange", scrollToHash);
     return () => window.removeEventListener("hashchange", scrollToHash);
   }, []);
-
-  useEffect(() => {
-    if (loginPageOpen) return;
-
-    const video = heroVideoRef.current;
-    if (!video) return;
-
-    let cancelled = false;
-
-    video.muted = true;
-    video.defaultMuted = true;
-    video.controls = false;
-    video.playsInline = true;
-
-    const playHeroVideo = async () => {
-      try {
-        await video.play();
-        if (!cancelled) setHeroVideoBlocked(false);
-      } catch {
-        if (!cancelled) setHeroVideoBlocked(true);
-      }
-    };
-
-    void playHeroVideo();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [loginPageOpen]);
 
   useEffect(() => {
     if (loginPageOpen) return;
@@ -398,15 +367,12 @@ function App() {
           <>
             <section className="hero-section" aria-labelledby="hero-title">
               <video
-                ref={heroVideoRef}
-                className={`hero-media${heroVideoBlocked ? " hero-media--hidden" : ""}`}
+                className="hero-media"
                 poster="/atlia-main-hero.png"
                 autoPlay
                 loop
                 muted
                 playsInline
-                disablePictureInPicture
-                disableRemotePlayback
                 preload="metadata"
                 aria-hidden="true"
               >
@@ -419,7 +385,9 @@ function App() {
                 <div className="hero-support">
                   <p>
                     We manage your short term rentals for 10% - the lowest price
-                    in the industry. And, we do it very well.
+                    in the industry.
+                    <br />
+                    And, we do it very well.
                   </p>
                   <a
                     className="yc-link"
@@ -507,7 +475,7 @@ function App() {
                       return (
                         <button
                           key={node.id}
-                          className={`graph-chip graph-chip--${node.tone}${
+                          className={`graph-chip graph-chip--${node.tone} graph-chip--${node.id}${
                             isActive ? " graph-chip--active" : ""
                           }`}
                           style={{ left: `${node.x}%`, top: `${node.y}%` }}
