@@ -226,7 +226,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  background: #101411;
+  background: #101411 url("/atlia-main-hero.webp") center / cover no-repeat;
 }
 
 main > section {

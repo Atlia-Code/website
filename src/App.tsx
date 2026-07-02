@@ -368,7 +368,7 @@ function App() {
             <section className="hero-section" aria-labelledby="hero-title">
               <video
                 className="hero-media"
-                poster="/atlia-main-hero.png"
+                poster="/atlia-main-hero.webp"
                 autoPlay
                 loop
                 muted
@@ -376,7 +376,14 @@ function App() {
                 preload="metadata"
                 aria-hidden="true"
               >
-                <source src="/atlia-hero-loop.mp4" type="video/mp4" />
+                <source
+                  src="/atlia-hero-loop.webm"
+                  type="video/webm"
+                />
+                <source
+                  src="/atlia-hero-loop-lite.mp4"
+                  type="video/mp4"
+                />
               </video>
               <div className="hero-vignette" aria-hidden="true" />
 
