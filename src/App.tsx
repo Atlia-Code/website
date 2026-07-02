@@ -1,10 +1,4 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-  type CSSProperties,
-  type FormEvent,
-} from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import "./App.css";
 import WaitlistModal from "./components/WaitlistModal";
 import atliaLogo from "./assets/atlia_logo_v1.png";
@@ -23,10 +17,11 @@ type GraphNode = {
   detail: string;
   x: number;
   y: number;
-  size: number;
   tone: "center" | "sage" | "terracotta" | "charcoal" | "smoke";
 };
 
+// Satellites sit on an even ellipse around the core (rx 31 / ry 33,
+// matching the .graph-orbit ring in App.css).
 const graphNodes: GraphNode[] = [
   {
     id: "property",
@@ -34,9 +29,8 @@ const graphNodes: GraphNode[] = [
     category: "Core memory",
     detail:
       "Complete understanding of your property and continuously improving guest operations.",
-    x: 52,
-    y: 52,
-    size: 104,
+    x: 50,
+    y: 50,
     tone: "center",
   },
   {
@@ -45,21 +39,9 @@ const graphNodes: GraphNode[] = [
     category: "Guest operations",
     detail:
       "Atlia manages all guest coordination (issue handling, check-in, and property questions), matching your tone and ensuring a 5-star experience for every guest.",
-    x: 30,
-    y: 24,
-    size: 74,
+    x: 50,
+    y: 17,
     tone: "sage",
-  },
-  {
-    id: "maintenance",
-    label: "Maintenance",
-    category: "Property care",
-    detail:
-      "Plumbing, HVAC, appliance notes, vendor preferences, and escalation rules are kept in context before problems become owner work.",
-    x: 22,
-    y: 60,
-    size: 70,
-    tone: "terracotta",
   },
   {
     id: "recommendations",
@@ -67,9 +49,8 @@ const graphNodes: GraphNode[] = [
     category: "Local context",
     detail:
       "Restaurants, beaches, activities, parking tips, and owner-approved suggestions are available for guest messages.",
-    x: 68,
-    y: 22,
-    size: 76,
+    x: 74.2,
+    y: 29.4,
     tone: "smoke",
   },
   {
@@ -78,10 +59,19 @@ const graphNodes: GraphNode[] = [
     category: "Revenue",
     detail:
       "Calendar demand, minimum stays, seasonal changes, and local events inform pricing decisions before they are surfaced.",
-    x: 78,
-    y: 50,
-    size: 66,
+    x: 80.2,
+    y: 57.3,
     tone: "terracotta",
+  },
+  {
+    id: "house-rules",
+    label: "House Rules",
+    category: "Operating rules",
+    detail:
+      "Parking, pets, noise, trash, access instructions, and property-specific boundaries are applied consistently.",
+    x: 63.5,
+    y: 79.7,
+    tone: "sage",
   },
   {
     id: "turnovers",
@@ -89,9 +79,8 @@ const graphNodes: GraphNode[] = [
     category: "Clean operations",
     detail:
       "Cleaning checklists, supply levels, inspection notes, and arrival timing stay coordinated between bookings.",
-    x: 58,
-    y: 80,
-    size: 68,
+    x: 36.5,
+    y: 79.7,
     tone: "sage",
   },
   {
@@ -100,21 +89,19 @@ const graphNodes: GraphNode[] = [
     category: "Owner visibility",
     detail:
       "Revenue, fees, maintenance status, and property health are summarized without extra dashboards.",
-    x: 34,
-    y: 80,
-    size: 68,
+    x: 19.8,
+    y: 57.3,
     tone: "charcoal",
   },
   {
-    id: "house-rules",
-    label: "House Rules",
-    category: "Operating rules",
+    id: "maintenance",
+    label: "Maintenance",
+    category: "Property care",
     detail:
-      "Parking, pets, noise, trash, access instructions, and property-specific boundaries are applied consistently.",
-    x: 72,
-    y: 72,
-    size: 64,
-    tone: "sage",
+      "Plumbing, HVAC, appliance notes, vendor preferences, and escalation rules are kept in context before problems become owner work.",
+    x: 25.8,
+    y: 29.4,
+    tone: "terracotta",
   },
 ];
 
@@ -126,21 +113,7 @@ const graphNodeById = graphNodes.reduce<Record<string, GraphNode>>(
   {},
 );
 
-const graphLinks = [
-  ["property", "guest-experience"],
-  ["property", "maintenance"],
-  ["property", "recommendations"],
-  ["property", "pricing"],
-  ["property", "turnovers"],
-  ["property", "owner-reporting"],
-  ["property", "house-rules"],
-  ["guest-experience", "recommendations"],
-  ["guest-experience", "house-rules"],
-  ["maintenance", "turnovers"],
-  ["pricing", "owner-reporting"],
-  ["turnovers", "owner-reporting"],
-  ["house-rules", "recommendations"],
-] as const;
+const satelliteNodes = graphNodes.filter((node) => node.id !== "property");
 
 const benefits = [
   {
@@ -453,42 +426,60 @@ function App() {
                       preserveAspectRatio="none"
                       aria-hidden="true"
                     >
-                      {graphLinks.map(([fromId, toId]) => {
-                        const fromNode = graphNodeById[fromId];
-                        const toNode = graphNodeById[toId];
-                        const isActive =
-                          activeGraphNodeId === fromId ||
-                          activeGraphNodeId === toId;
-
-                        return (
-                          <line
-                            key={`${fromId}-${toId}`}
-                            className={`graph-link${isActive ? " graph-link--active" : ""}`}
-                            x1={fromNode.x}
-                            y1={fromNode.y}
-                            x2={toNode.x}
-                            y2={toNode.y}
-                          />
-                        );
-                      })}
+                      <ellipse
+                        className="graph-orbit"
+                        cx="50"
+                        cy="50"
+                        rx="31"
+                        ry="33"
+                      />
+                      {satelliteNodes.map((node) => (
+                        <line
+                          key={node.id}
+                          className={`graph-link${
+                            activeGraphNodeId === node.id
+                              ? " graph-link--active"
+                              : ""
+                          }`}
+                          x1={50}
+                          y1={50}
+                          x2={node.x}
+                          y2={node.y}
+                        />
+                      ))}
                     </svg>
 
-                    {graphNodes.map((node) => {
+                    <button
+                      className={`graph-core${
+                        activeGraphNodeId === "property"
+                          ? " graph-core--active"
+                          : ""
+                      }`}
+                      type="button"
+                      aria-label="Property Brain"
+                      aria-describedby="graph-info"
+                      aria-pressed={activeGraphNodeId === "property"}
+                      onClick={() => setActiveGraphNodeId("property")}
+                      onFocus={() => setActiveGraphNodeId("property")}
+                      onMouseEnter={() => setActiveGraphNodeId("property")}
+                    >
+                      <span className="graph-core-label" aria-hidden="true">
+                        Property
+                        <br />
+                        Brain
+                      </span>
+                    </button>
+
+                    {satelliteNodes.map((node) => {
                       const isActive = activeGraphNodeId === node.id;
 
                       return (
                         <button
                           key={node.id}
-                          className={`graph-node graph-node--${node.tone}${
-                            isActive ? " graph-node--active" : ""
+                          className={`graph-chip graph-chip--${node.tone}${
+                            isActive ? " graph-chip--active" : ""
                           }`}
-                          style={
-                            {
-                              "--node-size": `${node.size}px`,
-                              left: `${node.x}%`,
-                              top: `${node.y}%`,
-                            } as CSSProperties
-                          }
+                          style={{ left: `${node.x}%`, top: `${node.y}%` }}
                           type="button"
                           aria-label={node.label}
                           aria-describedby="graph-info"
@@ -496,7 +487,10 @@ function App() {
                           onClick={() => setActiveGraphNodeId(node.id)}
                           onFocus={() => setActiveGraphNodeId(node.id)}
                           onMouseEnter={() => setActiveGraphNodeId(node.id)}
-                        />
+                        >
+                          <span className="graph-chip-dot" aria-hidden="true" />
+                          <span className="graph-chip-label">{node.label}</span>
+                        </button>
                       );
                     })}
                   </div>

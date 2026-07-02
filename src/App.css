@@ -441,7 +441,6 @@ main > section {
 .graph-canvas {
   position: relative;
   min-width: 0;
-  overflow: hidden;
 }
 
 .graph-links {
@@ -451,89 +450,173 @@ main > section {
   height: 100%;
 }
 
-.graph-link {
-  stroke: rgba(123, 145, 129, 0.5);
-  stroke-width: 0.28;
+.graph-orbit {
+  fill: none;
+  stroke: rgba(17, 24, 19, 0.06);
+  stroke-width: 1;
   vector-effect: non-scaling-stroke;
-  transition:
-    stroke 180ms ease,
-    stroke-width 180ms ease,
-    opacity 180ms ease;
+}
+
+.graph-link {
+  stroke: rgba(111, 139, 118, 0.32);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  transition: stroke 220ms ease;
 }
 
 .graph-link--active {
-  stroke: rgba(186, 105, 62, 0.78);
-  stroke-width: 0.55;
+  stroke: rgba(186, 105, 62, 0.6);
 }
 
-.graph-node {
-  --node-size: 68px;
+.graph-core {
   position: absolute;
+  left: 50%;
+  top: 50%;
   display: grid;
-  width: var(--node-size);
-  height: var(--node-size);
+  width: 116px;
+  height: 116px;
   place-items: center;
   transform: translate(-50%, -50%);
-  border: 1px solid rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(17, 24, 19, 0.12);
   border-radius: 999px;
-  padding: 10px;
-  color: #f8f8f4;
+  background:
+    radial-gradient(circle at 38% 30%, rgba(255, 255, 255, 0.85), transparent 58%),
+    #ccd5c9;
   cursor: pointer;
   font: inherit;
   box-shadow:
-    0 16px 40px rgba(17, 24, 19, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.32);
+    0 20px 50px rgba(17, 24, 19, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
   transition:
-    box-shadow 180ms ease,
-    filter 180ms ease,
-    transform 180ms ease;
+    box-shadow 220ms ease,
+    transform 220ms ease;
 }
 
-.graph-node--center {
-  color: #142018;
-  background:
-    radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.8), transparent 36%),
-    #c5cec3;
+.graph-core::before,
+.graph-core::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
 }
 
-.graph-node--sage {
-  background:
-    radial-gradient(circle at 35% 26%, rgba(255, 255, 255, 0.22), transparent 35%),
-    #6f8b76;
+.graph-core::before {
+  inset: -16px;
+  border: 1px solid rgba(111, 139, 118, 0.22);
+  animation: graph-core-halo 4.5s ease-in-out infinite;
 }
 
-.graph-node--terracotta {
-  background:
-    radial-gradient(circle at 35% 26%, rgba(255, 255, 255, 0.24), transparent 35%),
-    #bf7549;
+.graph-core::after {
+  inset: -8px;
+  border: 1px solid rgba(17, 24, 19, 0.05);
 }
 
-.graph-node--charcoal {
-  background:
-    radial-gradient(circle at 35% 26%, rgba(255, 255, 255, 0.18), transparent 35%),
-    #1f2730;
+@keyframes graph-core-halo {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 0.5;
+  }
 }
 
-.graph-node--smoke {
-  background:
-    radial-gradient(circle at 35% 26%, rgba(255, 255, 255, 0.24), transparent 35%),
-    #536171;
+@media (prefers-reduced-motion: reduce) {
+  .graph-core::before {
+    animation: none;
+  }
 }
 
-.graph-node:hover,
-.graph-node:focus-visible,
-.graph-node--active {
-  filter: saturate(1.06);
-  transform: translate(-50%, -50%) scale(1.04);
+.graph-core-label {
+  color: #2f3a32;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  line-height: 1.6;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.graph-core:hover,
+.graph-core:focus-visible,
+.graph-core--active {
+  transform: translate(-50%, -50%) scale(1.03);
   box-shadow:
-    0 0 0 5px rgba(191, 117, 73, 0.12),
-    0 18px 48px rgba(17, 24, 19, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.36);
+    0 0 0 6px rgba(111, 139, 118, 0.1),
+    0 24px 56px rgba(17, 24, 19, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
 }
 
-.graph-node:focus-visible {
+.graph-chip {
+  --chip-tone: #6f8b76;
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 8px 11px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(17, 24, 19, 0.1);
+  border-radius: 999px;
+  color: #46514a;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 550;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 26px rgba(17, 24, 19, 0.07);
+  transition:
+    color 200ms ease,
+    border-color 200ms ease,
+    background-color 200ms ease,
+    box-shadow 200ms ease,
+    transform 200ms ease;
+}
+
+.graph-chip--sage {
+  --chip-tone: #6f8b76;
+}
+
+.graph-chip--terracotta {
+  --chip-tone: #bf7549;
+}
+
+.graph-chip--charcoal {
+  --chip-tone: #303a44;
+}
+
+.graph-chip--smoke {
+  --chip-tone: #536171;
+}
+
+.graph-chip-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--chip-tone);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--chip-tone) 16%, transparent);
+}
+
+.graph-chip:hover,
+.graph-chip:focus-visible,
+.graph-chip--active {
+  color: #1c231e;
+  border-color: color-mix(in srgb, var(--chip-tone) 42%, transparent);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 14px 32px rgba(17, 24, 19, 0.12);
+  transform: translate(-50%, -50%) translateY(-2px);
+}
+
+.graph-chip:focus-visible,
+.graph-core:focus-visible {
   outline: 2px solid rgba(17, 24, 19, 0.68);
-  outline-offset: 4px;
+  outline-offset: 3px;
 }
 
 .graph-info {
@@ -1380,10 +1463,27 @@ main > section {
     padding: 22px;
   }
 
-  .graph-node {
-    width: calc(var(--node-size) * 0.86);
-    height: calc(var(--node-size) * 0.86);
-    padding: 8px;
+  .graph-core {
+    width: 96px;
+    height: 96px;
+  }
+
+  .graph-core::before {
+    inset: -12px;
+  }
+
+  .graph-core::after {
+    inset: -6px;
+  }
+
+  .graph-core-label {
+    font-size: 10px;
+  }
+
+  .graph-chip {
+    gap: 7px;
+    padding: 6px 11px 6px 9px;
+    font-size: 12px;
   }
 
   .graph-info {
@@ -1501,10 +1601,43 @@ main > section {
     padding: 14px;
   }
 
-  .graph-node {
-    width: calc(var(--node-size) * 0.68);
-    height: calc(var(--node-size) * 0.68);
-    padding: 6px;
+  .graph-core {
+    width: 82px;
+    height: 82px;
+  }
+
+  .graph-core::before {
+    inset: -9px;
+  }
+
+  .graph-core::after {
+    inset: -5px;
+  }
+
+  .graph-core-label {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+  }
+
+  /* Not enough room for labels on phones — collapse chips to tappable
+     dots; the info card below names the selected node. */
+  .graph-chip {
+    gap: 0;
+    padding: 11px;
+  }
+
+  .graph-chip-dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .graph-chip-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 
   .graph-info {
