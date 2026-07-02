@@ -569,15 +569,6 @@ function App() {
                     management fees when moving from a 30% manager to Atlia's
                     10% fee, before any revenue lift or operating improvements.
                   </p>
-                  <a
-                    className="demo-button demo-button--light"
-                    href="/airbnb-management-fee-calculator/"
-                  >
-                    <span>Open fee calculator</span>
-                    <span className="demo-arrow" aria-hidden="true">
-                      →
-                    </span>
-                  </a>
                 </div>
 
                 <div className="roi-calculator">
