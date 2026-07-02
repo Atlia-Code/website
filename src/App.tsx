@@ -6,7 +6,7 @@ import atliaLogo from "./assets/atlia_logo_v1.png";
 const navLinks = [
   { label: "Home", href: "#top" },
   { label: "Product", href: "#product" },
-  { label: "Owners", href: "#owners" },
+  { label: "How it works", href: "#how-it-works" },
   { label: "FAQ", href: "#faq" },
 ];
 
@@ -114,6 +114,36 @@ const graphNodeById = graphNodes.reduce<Record<string, GraphNode>>(
 );
 
 const satelliteNodes = graphNodes.filter((node) => node.id !== "property");
+
+const revenueMin = 35000;
+const revenueMax = 250000;
+const defaultRevenue = 60000;
+const revenueCurve = 2;
+const atliaRate = 10;
+const defaultTraditionalRate = 30;
+const defaultWeeklyHours = 4;
+
+const revenueToSlider = (revenue: number) =>
+  Math.sqrt((revenue - revenueMin) / (revenueMax - revenueMin)) * 100;
+
+const sliderToRevenue = (sliderValue: number) =>
+  Math.round(
+    (revenueMin +
+      (revenueMax - revenueMin) * (sliderValue / 100) ** revenueCurve) /
+      1000,
+  ) * 1000;
+
+const formatCurrency = (value: number) =>
+  new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(value);
+
+const formatHours = (value: number) =>
+  new Intl.NumberFormat("en-US", {
+    maximumFractionDigits: 0,
+  }).format(value);
 
 const benefits = [
   {
@@ -230,6 +260,13 @@ function App() {
   const [activeFaq, setActiveFaq] = useState(-1);
   const [activeGraphNodeId, setActiveGraphNodeId] = useState("property");
   const [loginPageOpen, setLoginPageOpen] = useState(false);
+  const [revenueSliderValue, setRevenueSliderValue] = useState(
+    revenueToSlider(defaultRevenue),
+  );
+  const [traditionalRate, setTraditionalRate] = useState(
+    defaultTraditionalRate,
+  );
+  const [weeklyHours, setWeeklyHours] = useState(defaultWeeklyHours);
   const waitlistPromptShownRef = useRef(false);
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
 
@@ -253,6 +290,13 @@ function App() {
   };
   const activeGraphNode =
     graphNodeById[activeGraphNodeId] ?? graphNodeById.property;
+  const annualRevenue = sliderToRevenue(revenueSliderValue);
+  const traditionalFee = annualRevenue * (traditionalRate / 100);
+  const atliaFee = annualRevenue * (atliaRate / 100);
+  const annualFeeSavings = traditionalFee - atliaFee;
+  const monthlyFeeSavings = annualFeeSavings / 12;
+  const monthlyHoursSaved = weeklyHours * 4.33;
+  const annualHoursSaved = weeklyHours * 52;
 
   useEffect(() => {
     const updateNav = () => setNavScrolled(window.scrollY > 120);
@@ -461,14 +505,8 @@ function App() {
                 preload="metadata"
                 aria-hidden="true"
               >
-                <source
-                  src="/atlia-hero-loop.webm"
-                  type="video/webm"
-                />
-                <source
-                  src="/atlia-hero-loop-lite.mp4"
-                  type="video/mp4"
-                />
+                <source src="/atlia-hero-loop.webm" type="video/webm" />
+                <source src="/atlia-hero-loop-lite.mp4" type="video/mp4" />
               </video>
               <div className="hero-vignette" aria-hidden="true" />
 
@@ -498,15 +536,155 @@ function App() {
                 <div>
                   <h2>Atlia is your property manager</h2>
                 </div>
-                <p className="section-lede">
-                  Atlia handles everything - guests, cleaners, maintenance,
-                  pricing, owner reporting, and day-to-day decisions with
-                  experienced operators supervising the system.
-                </p>
+                <div className="section-lede-stack">
+                  <p className="section-lede">
+                    Atlia handles everything - guests, cleaners, maintenance,
+                    pricing, owner reporting, and day-to-day decisions with
+                    experienced operators supervising the system.
+                  </p>
+                  <p className="section-lede">
+                    All you do is watch your investment provide you better
+                    returns.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section className="page-section roi-section">
+              <div className="roi-shell">
+                <div className="roi-copy">
+                  <div className="roi-heading">
+                    <h2>Keep more of every booking</h2>
+                  </div>
+                  <p className="roi-description">
+                    Our typical client saves $12,000 a year in management fees
+                    when they switch to using Atlia. All while being able to
+                    provide a better, more personalized guest experience.
+                  </p>
+                </div>
+
+                <div className="roi-calculator">
+                  <div className="roi-result-panel">
+                    <div className="roi-card-header">
+                      <span>Management fee savings</span>
+                    </div>
+                    <p className="roi-number">
+                      {formatCurrency(annualFeeSavings)}
+                    </p>
+                    <p className="roi-label">
+                      more owner income per year compared with a{" "}
+                      {traditionalRate}% manager
+                    </p>
+
+                    <div className="roi-result-grid">
+                      <div>
+                        <span>Traditional fee</span>
+                        <strong>{formatCurrency(traditionalFee)}</strong>
+                      </div>
+                      <div>
+                        <span>Atlia fee</span>
+                        <strong>{formatCurrency(atliaFee)}</strong>
+                      </div>
+                      <div>
+                        <span>Monthly savings</span>
+                        <strong>{formatCurrency(monthlyFeeSavings)}</strong>
+                      </div>
+                    </div>
+
+                    <div className="roi-time-results">
+                      <span>Owner time back</span>
+                      <strong>{formatHours(monthlyHoursSaved)} hrs/mo</strong>
+                      <strong>{formatHours(annualHoursSaved)} hrs/yr</strong>
+                    </div>
+                  </div>
+
+                  <div className="roi-controls">
+                    <label className="roi-control">
+                      <span>
+                        Annual Airbnb revenue
+                        <strong>{formatCurrency(annualRevenue)}</strong>
+                      </span>
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value={revenueSliderValue}
+                        onChange={(event) =>
+                          setRevenueSliderValue(event.target.valueAsNumber)
+                        }
+                      />
+                      <div className="roi-scale">
+                        <span>$35k</span>
+                        <span>$250k+</span>
+                      </div>
+                    </label>
+
+                    <label className="roi-control">
+                      <span>
+                        Traditional manager fee
+                        <strong>{traditionalRate}%</strong>
+                      </span>
+                      <input
+                        type="range"
+                        min="20"
+                        max="35"
+                        step="1"
+                        value={traditionalRate}
+                        onChange={(event) =>
+                          setTraditionalRate(event.target.valueAsNumber)
+                        }
+                      />
+                      <div className="roi-scale">
+                        <span>20%</span>
+                        <span>35%</span>
+                      </div>
+                    </label>
+
+                    <label className="roi-control">
+                      <span>
+                        Owner hours on property
+                        <strong>{weeklyHours} hrs/wk</strong>
+                      </span>
+                      <input
+                        type="range"
+                        min="0"
+                        max="15"
+                        step="0.5"
+                        value={weeklyHours}
+                        onChange={(event) =>
+                          setWeeklyHours(event.target.valueAsNumber)
+                        }
+                      />
+                      <div className="roi-scale">
+                        <span>0</span>
+                        <span>7.5</span>
+                        <span>15</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section className="page-section how-section" id="how-it-works">
+              <div className="section-grid section-grid--how">
+                <div>
+                  <h2>We give your property a brain</h2>
+                </div>
+                <div className="how-copy">
+                  <p>
+                    We enable a first-in-class experience by giving your
+                    property the ability to remember, learn, and improve over
+                    time. This turns your property into its own manager, with
+                    constant oversight from our team of talented engineers and
+                    experienced operators.
+                  </p>
+                </div>
               </div>
 
               <div
-                className="product-visual"
+                className="product-visual product-visual--how"
                 aria-label="Atlia property knowledge graph"
               >
                 <div className="knowledge-graph">
