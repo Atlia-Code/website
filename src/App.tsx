@@ -231,6 +231,8 @@ function App() {
   const [activeGraphNodeId, setActiveGraphNodeId] = useState("property");
   const [loginPageOpen, setLoginPageOpen] = useState(false);
   const waitlistPromptShownRef = useRef(false);
+  const heroVideoRef = useRef<HTMLVideoElement | null>(null);
+  const [heroVideoBlocked, setHeroVideoBlocked] = useState(false);
 
   const openWaitlist = () => {
     waitlistPromptShownRef.current = true;
@@ -278,6 +280,35 @@ function App() {
     window.addEventListener("hashchange", scrollToHash);
     return () => window.removeEventListener("hashchange", scrollToHash);
   }, []);
+
+  useEffect(() => {
+    if (loginPageOpen) return;
+
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    let cancelled = false;
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.controls = false;
+    video.playsInline = true;
+
+    const playHeroVideo = async () => {
+      try {
+        await video.play();
+        if (!cancelled) setHeroVideoBlocked(false);
+      } catch {
+        if (!cancelled) setHeroVideoBlocked(true);
+      }
+    };
+
+    void playHeroVideo();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [loginPageOpen]);
 
   useEffect(() => {
     if (loginPageOpen) return;
@@ -367,12 +398,15 @@ function App() {
           <>
             <section className="hero-section" aria-labelledby="hero-title">
               <video
-                className="hero-media"
+                ref={heroVideoRef}
+                className={`hero-media${heroVideoBlocked ? " hero-media--hidden" : ""}`}
                 poster="/atlia-main-hero.png"
                 autoPlay
                 loop
                 muted
                 playsInline
+                disablePictureInPicture
+                disableRemotePlayback
                 preload="metadata"
                 aria-hidden="true"
               >
